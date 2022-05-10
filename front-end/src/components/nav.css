@@ -1,0 +1,149 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+*{
+  
+    padding: 0%;
+    margin: 0%;
+    box-sizing: border-box;
+    text-transform: capitalize;
+    font-family: "Roboto", sans-serif;
+    z-index: 1;
+}
+nav{
+    background-color: rgb(248, 249, 250);
+    padding: 1em;
+    position: sticky;
+    top: 0px;
+    width: 100%;
+    z-index: 100;
+} 
+
+ul , .auth-container , .nav-options{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+   
+    
+}
+li {
+    list-style: none;
+    color: rgb(0, 0, 0);
+    width: 6em;
+    padding: 0.4em 0 ;
+    text-align: center; 
+    font-size: 18px;
+    /* font-family: 'Arbutus Slab', serif;
+    font-weight: 500; */
+    font-family: Roboto, sans-serif;
+    transition: all 0.6s ease 0s;
+    margin: 0.2em;
+}
+.link{
+  text-decoration: none;
+}
+.activeLink{
+    background-color: #d0a773;
+    list-style: none;
+    text-decoration: none;
+    border-radius:0.4em;
+    transition: all 0.6s ease 0s;
+}
+.activeLink li {
+    color:white ;
+   
+}
+ li:hover{
+    background-color: #d0a773;
+    color: white;
+    border-radius:0.3em;
+    transition: all 0.3s ease-in-out 0s;
+}
+nav > .nav-toggle{
+  display: none;
+}
+.auth{
+ margin-left: 20em;
+
+ 
+}
+@media (max-width:700px){
+    nav{
+      position: revert;
+      }
+      /* .logo-containr{
+        margin-right: 10em;
+      } */
+    .ClassForResponsive{
+    position:absolute;
+    top: 100px;
+    display: flex;
+    flex-direction: column;
+    background-color: #f5f5f5;
+    left: 0;
+    /* height: 100%;
+     */
+     height: 100%;
+    width: 100%;
+    /* width: 50%; */
+    opacity: 95%;
+    transform: translateX(-100%);
+    transition: all .45s;
+    z-index: 100;
+  }
+  .ClassForResponsive.open{
+    transform: translateY(0);
+  }
+  .auth{
+    margin-left: 0em;
+  }
+  .nav-toggle{
+    display: flex;
+    width: 50px;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    
+  }
+  .nav-toggle > .bar {
+    position: relative;
+    width: 32px;
+    height: 2px;
+    background: #000000;
+    transition: all 0.45s ease-in-out;
+  }
+
+  .nav-toggle > .bar::before,
+  .nav-toggle > .bar::after {
+    content: "";
+    position: absolute;
+    height: 2px;
+    background: #000000;
+    border-radius: 2px;
+    transition: all 0.45s ease-in-out;
+  }
+
+  .nav-toggle > .bar::before {
+    width: 25px;
+    transform: translateY(-8px);
+    right: 0;
+  }
+
+  .nav-toggle > .bar::after {
+    width: 32px;
+    transform: translateY(8px);
+  }
+
+  .nav-toggle.open > .bar {
+      transform: translateX(-40px);
+      background: transparent;
+  }
+
+  .nav-toggle.open > .bar::before {
+      width: 32px;
+      transform: rotate(45deg) translate(26px, -26px);
+  }
+
+  .nav-toggle.open > .bar::after {
+    transform: rotate(-45deg) translate(26px, 26px);
+  }
+}

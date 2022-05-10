@@ -1,0 +1,25 @@
+.qt-background{
+    margin: 7em;
+}
+.qt-background .row{
+    background: url(../assets/imgs/qt-bg.jpg) no-repeat;
+    background-size: cover;
+    padding: 100px 0;
+    background-attachment: fixed;
+    background-position: center center;
+    position: relative;
+    
+  }
+  .text-left {
+    text-align: left;
+    margin-right: auto;
+    margin-left: auto;
+}
+  .qt-background p , span {
+    font-size: 35px;
+    font-weight: 300;
+    line-height: 44px;
+    width: 70%;
+    color: rgb(109, 109, 109);
+    font-family: 'Arbutus Slab', serif;
+  }
