@@ -1,4 +1,3 @@
-import React from "react";
 import './Home.css'
 import Slider from "../components/Slider";
 import Intro from "../components/intro";

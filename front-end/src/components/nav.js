@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import './nav.css'
 import {NavLink} from 'react-router-dom'
 import logoImage from '../assets/imgs/logo.png'
 function Nav(){
     const [isOpen, setIsOpen] = useState(false);
         return(
-            
+            <div className="nav-container">
         <nav>
             <ul>
                 <div className="logo-containr">
@@ -30,29 +30,17 @@ function Nav(){
                 </li>
                 </NavLink>
                 
-                <NavLink to='sign-in'  className={({isActive}) => (isActive ? "activeLink " : "link ")}>
+                <NavLink to='login'  className={({isActive}) => (isActive ? "activeLink " : "link ")}>
                 <li  onClick={() => setIsOpen(!isOpen)}>
-                    sign in
+                    login
                 </li>
                 </NavLink>
-                <NavLink to='sign-up'  className={({isActive}) => (isActive ? "activeLink  " : "link ")}>
+                <NavLink to='register'  className={({isActive}) => (isActive ? "activeLink  " : "link ")}>
                 <li  onClick={() => setIsOpen(!isOpen)}>
                     sign up 
                 </li>
                 </NavLink>
                 </div>
-                {/* <div className="auth-container ">
-                <NavLink to='sign-in'  className={({isActive}) => (isActive ? "activeLink" : "link")}>
-                <li>
-                    sign in
-                </li>
-                </NavLink>
-                <NavLink to='sign-up'  className={({isActive}) => (isActive ? "activeLink" : "link")}>
-                <li>
-                    sign up 
-                </li>
-                </NavLink>
-                </div> */}
             <div className={`nav-toggle ${isOpen && "open"}`}
                 onClick={() => setIsOpen(!isOpen)}
             >
@@ -61,6 +49,7 @@ function Nav(){
             </ul>
             
         </nav>
+        </div>
        
     )
 }

@@ -8,7 +8,7 @@
     font-family: "Roboto", sans-serif;
     z-index: 1;
 }
-nav{
+.nav-container{
     background-color: rgb(248, 249, 250);
     padding: 1em;
     position: sticky;
@@ -66,29 +66,23 @@ nav > .nav-toggle{
  
 }
 @media (max-width:700px){
-    nav{
-      position: revert;
-      }
-      /* .logo-containr{
-        margin-right: 10em;
-      } */
     .ClassForResponsive{
     position:absolute;
     top: 100px;
     display: flex;
+    align-items:center;
+    align-content: space-around;
     flex-direction: column;
     background-color: #f5f5f5;
     left: 0;
-    /* height: 100%;
-     */
-     height: 100%;
+    height: 90vh;
     width: 100%;
-    /* width: 50%; */
     opacity: 95%;
     transform: translateX(-100%);
     transition: all .45s;
     z-index: 100;
   }
+
   .ClassForResponsive.open{
     transform: translateY(0);
   }

@@ -1,6 +1,4 @@
-import React from "react";
 import './quote.css'
-
 function Quote(){
     return(
         <div className="qt-box qt-background">
