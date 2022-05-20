@@ -2,9 +2,7 @@ import { useRef, useState, useEffect , useContext } from 'react';
 import axios from 'axios'
 import UseAuth from '../hooks/useAuth';
 import {Link , useNavigate , useLocation} from 'react-router-dom'
-// for saving what have wrote in the fields so if you leave the page, and you come back whatever you wrote before will still there
-import useInput from '../hooks/useInput ';
-import useToggle from '../hooks/useToggle';
+
 const Login = () => {
     const { persist , setPersist} = UseAuth()
     const setAuth = UseAuth()
