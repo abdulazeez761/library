@@ -9,6 +9,8 @@ const registerFunction = require('./router/registerRouter')
 const loginFunction = require('./router/loginRouter')
 const refreshToken = require('./router/refreshTokenRouter')
 const logOutFunction = require('./router/logOutRouter')
+const getUser = require('./router/getUserRouter')
+const verrify = require('./middleware/verifyJWT')
 const app = express(); 
 const corsOptions ={
     origin:'http://localhost:3000', 
@@ -18,13 +20,14 @@ const corsOptions ={
 app.use(core(corsOptions));
 app.use(formidable())
 app.use(cookie())
-// app.use(express.urlencoded({ extended: false }));
 // app.use(express.json());
+// app.use(express.urlencoded({ extended: false }));
 app.use(collegeData)
 app.use(registerFunction)
 app.use(loginFunction)
 app.use(refreshToken)
 app.use(logOutFunction)
+app.use(getUser)
 app.listen(port , ()=>{
     console.log(`listening on http://localhost:${port}`)
 })

@@ -5,31 +5,53 @@ const jwt = require('jsonwebtoken');
 exports.LoginFunction = async (req , res , nex)=>{
     let {user , pwd} = req.fields;
     let [rows , meta] = await userData.isUserExist(user)
-    let [otherUsersRow , otherUsersMeta] = await userData.otherUsers()
+    if(rows.length <=0) return res.sendStatus(401);
+    let userId = rows[0]['id']
+    let [roles , rolesMeta] = await userData.getUserRoles(userId)
+    //filtering the data
+    roles.forEach(element => {
+        let stringRolesArry = [element.Admin ,  element.User , element.Editor]
+        let numberRoles = stringRolesArry.map(function (x) { 
+            
+            if( typeof x == 'string'){
+             return parseInt(x, 10); 
+            } 
+         
+       });
+      
+     let result = numberRoles.filter(element => {
+         return element !== undefined;
+       });
+       roles = result
+       
+     });
+
+
+
     try{
         const unencryptedPassword = await bcrypt.compare(pwd, rows[0]['pwd'])
         if(rows.length <=0) return res.sendStatus(401);
         if(unencryptedPassword){
-            const accessToken =   jwt.sign(
-                {"username" : rows[0]['user_name']},
+           
+            const accessToken = jwt.sign(
+                {
+                    'UserInfo':{
+                         "username" : rows[0]['user_name'],
+                         'roles':roles
+                    }
+                   
+                   
+                },
                 process.env.ACCESS_TOKEN_SECRET,
-                {expiresIn:'15m'}//15m
+                {expiresIn:'15s'}//15m
             );
-            const refreshToken =   jwt.sign(
+            const refreshToken = jwt.sign(
                 {"username" : rows[0]['user_name']},
                 process.env.REFRESH_TOKEN_SECRET,
                 {expiresIn:'1d'}
             );
-            const otherUsersArry = []
             const currentUser = {...rows , refreshToken}
             let token = currentUser['refreshToken']
-            for(let i =0; i <otherUsersRow.length; i++){
-                // console.log(otherUsersRow[i])
-                if(otherUsersRow[i]['user_name'] !== rows[0]['user_name']){
-                    otherUsersArry.push(otherUsersRow[i])
-                    // console.log(otherUsersArry)
-                }
-            }
 
             //storing the refresh token in the data base
             userData.refreshToken(user ,token ).then(()=>{
@@ -38,8 +60,10 @@ exports.LoginFunction = async (req , res , nex)=>{
             })
             res.cookie('jwt' , refreshToken , {httpOnly: true , maxAge: 24 *60 *60 *1000})
             res.json({
-                accessToken
+                accessToken , 
+                roles
             })
+            console.log(user , pwd)
         } else {
             res.sendStatus(401)
         }

@@ -11,19 +11,24 @@ exports.signUpFunction = async (req ,res , next) =>{
         return res.sendStatus(409);
     } 
     //adding a user
-    try{
+    try{ 
         //encrypt the passowrd
         const hashedPassowrd = await bcrypt.hash(pwd , 10);
         userData.addNewUser(user , hashedPassowrd).then(()=>{
             res.status(201).json({
-                'success' : `new user ${user} created`
+                'success' : `new user ${user} created `
             })
+            
         })
-
+    //  adding user roles 
+      let[Id , ID] = await userData.getUserId(user)
+      let userRole = 2001; //this is  user's role
+      let userId = Id[0]['id']
+      userData.addUserRoles(userRole , userId)
     }catch(err){
          res.status(500).json({
              'message': err.message
          })
     }
-    // res.status(200).send("done"); 
+      
 }

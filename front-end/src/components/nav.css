@@ -65,6 +65,9 @@ nav > .nav-toggle{
 
  
 }
+.notLogged {
+ display: none;
+}
 @media (max-width:700px){
     .ClassForResponsive{
     position:absolute;

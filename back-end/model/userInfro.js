@@ -39,3 +39,21 @@ exports.logOut = ( refreshToken) =>{
         reject(Error('somthing went wrong'))
     })
 }
+//adding the user roles in roles table 
+exports.addUserRoles = (userRole , userId )=>{
+    return new Promise (( resolve , reject)=>{
+        resolve(dataDaseConnection.execute(`INSERT INTO user_roles (User , userId ) values(?, ?)`, 
+        [userRole ,userId]))
+    })
+}
+exports.getUserId = (user) =>{
+    return new Promise ((resolve, reject)=>{
+        resolve(dataDaseConnection.execute(`SELECT id FROM userinfo WHERE user_name = '${user}'`))
+        reject(Error('somthing went wrong'))
+    })
+}
+exports.getUserRoles = (userId)=>{
+    return new Promise((resolve , reject)=>{
+        resolve(dataDaseConnection.execute(`SELECT * FROM user_roles where userId = ${userId}`))
+    })
+}
