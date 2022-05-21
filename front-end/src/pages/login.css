@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300');
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+    text-decoration: none;
+}
+.box-wrapper{
+    height: 630px;
+    position: relative;  
+  }
+  
+.box{
+	font-family: 'Open Sans Condensed', sans-serif;
+	letter-spacing: 0.2em;
+	font-size: 0.98em;  
+    grid-area: box;
+    position: absolute;
+      top:  60%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #FFF;
+      padding: 50px;
+      box-sizing: border-box;
+      border: 1px solid rgba(0,0,0,.1);
+      box-shadow: 0 30px 20px rgba(0,0,0,.2);
+} 
+.box h1{
+	margin: 0 0 40px;
+	padding: 0;
+	color: #222;
+	text-transform: uppercase;
+	text-align: center;
+}
+.box input{
+	padding: 10px 0;
+	margin-bottom: 50px;
+    
+}
+
+.box input, .box textarea {
+	width: 100%;
+	box-sizing: border-box;
+	box-shadow: none;
+	outline: none;
+	border: none;
+	border-bottom: 2px solid #999;
+   
+    
+}
+
+.box button{
+      font-size: 1.1em;
+      border-bottom: none;
+      cursor: pointer;
+      background: #d0a773;
+      color: #FFF;
+      margin-bottom: 0;
+      text-transform: uppercase;
+      border-style: none;
+      border-radius: 2em;
+  }
+  .box form div{
+	position: relative;
+}
+.box form div label {
+	position: absolute;
+	left: 0;
+	color: #999;
+
+}
+
+.box input:focus ~ label, .box textarea:focus ~ label, 
+.box input:valid ~ label, .box textarea:valid ~ label {
+	top: -40px;
+	left: 0;
+  color: #d0a773;;
+	font-size: 1em;
+	font-weight: bold;
+  transition: all 0.2s ease-in-out 0s;
+}
+
+.box input:focus ~ label, .box textarea:focus ~ label, 
+.box input:valid, .box textarea:valid {
+  border-bottom: 2px solid #d0a773;;
+  
+}
+.line{
+  text-decoration: none;
+  color: rgb(117, 117, 117) !important;
+  
+}
+.line:hover{
+    color: rgb(68, 68, 68) !important;
+}
+
+.persistCheck > input{
+    cursor: pointer;
+    position: relative;
+    accent-color: rgb(167, 134, 72);
+
+}

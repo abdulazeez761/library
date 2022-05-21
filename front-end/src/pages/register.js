@@ -91,15 +91,13 @@ function Register(){
                     </Link>
                 </section>
             ) : (
-                <section>
+                <div className='box-wrapper'>
+                <section className='box'>
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                     <h1>Register</h1>
                     <form onSubmit={handleSubmit}>
-                        <label htmlFor="username">
-                            Username:
-                            <FontAwesomeIcon icon={faCheck} className={validName ? "valid" : "hide"} />
-                            <FontAwesomeIcon icon={faTimes} className={validName || !user ? "hide" : "invalid"} />
-                        </label>
+                        <div>
+                        
                         <input
                             type="text"
                             id="username"
@@ -113,19 +111,20 @@ function Register(){
                             onFocus={() => setUserFocus(true)}
                             onBlur={() => setUserFocus(false)}
                         />
+                        <label htmlFor="username">
+                            Username:
+                            <FontAwesomeIcon icon={faCheck} className={validName ? "valid" : "hide"} />
+                            <FontAwesomeIcon icon={faTimes} className={validName || !user ? "hide" : "invalid"} />
+                        </label>
                         <p id="uidnote" className={userFocus && user && !validName ? "instructions" : "offscreen"}>
                             <FontAwesomeIcon icon={faInfoCircle} />
                             4 to 24 characters.<br />
                             Must begin with a letter.<br />
                             Letters, numbers, underscores, hyphens allowed.
                         </p>
-
-
-                        <label htmlFor="password">
-                            Password:
-                            <FontAwesomeIcon icon={faCheck} className={validPwd ? "valid" : "hide"} />
-                            <FontAwesomeIcon icon={faTimes} className={validPwd || !pwd ? "hide" : "invalid"} />
-                        </label>
+                        </div>
+                        <div>
+                      
                         <input
                             type="password"
                             id="password"
@@ -137,6 +136,11 @@ function Register(){
                             onFocus={() => setPwdFocus(true)}
                             onBlur={() => setPwdFocus(false)}
                         />
+                          <label htmlFor="password">
+                            Password:
+                            <FontAwesomeIcon icon={faCheck} className={validPwd ? "valid" : "hide"} />
+                            <FontAwesomeIcon icon={faTimes} className={validPwd || !pwd ? "hide" : "invalid"} />
+                        </label>
                         <p id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
                             <FontAwesomeIcon icon={faInfoCircle} />
                             8 to 24 characters.<br />
@@ -144,12 +148,9 @@ function Register(){
                             Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
                         </p>
 
-
-                        <label htmlFor="confirm_pwd">
-                            Confirm Password:
-                            <FontAwesomeIcon icon={faCheck} className={validMatch && matchPwd ? "valid" : "hide"} />
-                            <FontAwesomeIcon icon={faTimes} className={validMatch || !matchPwd ? "hide" : "invalid"} />
-                        </label>
+                        </div>
+                        <div>
+                      
                         <input
                             type="password"
                             id="confirm_pwd"
@@ -160,12 +161,17 @@ function Register(){
                             aria-describedby="confirmnote"
                             onFocus={() => setMatchFocus(true)}
                             onBlur={() => setMatchFocus(false)}
-                        />
+                        /> 
+                         <label htmlFor="confirm_pwd">
+                            Confirm Password:
+                            <FontAwesomeIcon icon={faCheck} className={validMatch && matchPwd ? "valid" : "hide"} />
+                            <FontAwesomeIcon icon={faTimes} className={validMatch || !matchPwd ? "hide" : "invalid"} />
+                        </label>
                         <p id="confirmnote" className={matchFocus && !validMatch ? "instructions" : "offscreen"}>
                             <FontAwesomeIcon icon={faInfoCircle} />
                             Must match the first password input field.
                         </p>
-
+                        </div>
                         <button disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up</button>
                     </form>
                     <p>
@@ -176,6 +182,7 @@ function Register(){
                         </Link>
                     </p>
                 </section>
+                </div>
             )}
         
         </>

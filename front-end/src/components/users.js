@@ -25,8 +25,7 @@ const Users = () =>{
        
         }catch(err){
             console.log( err  )
-            auth.isLoggedIn = false
-               navigate('/login', { state: { from: location }, replace: true });
+             navigate('/login', { state: { from: location }, replace: true });
         }
       }
       getUsers()

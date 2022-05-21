@@ -6,7 +6,7 @@ import useAuth from '../hooks/useAuth';
 const PersistLogin = () => {
     const [isLoading, setIsLoading] = useState(true);
     const refresh = useRefreshToken();
-    const { auth , persist } = useAuth();
+    const { auth, persist } = useAuth();
 
     useEffect(() => {
         let isMounted = true;
@@ -23,13 +23,14 @@ const PersistLogin = () => {
             }
         }
 
-        // persist added here AFTER tutorial video
+    
         // Avoids unwanted call to verifyRefreshToken
-        !auth?.accessToken  ? verifyRefreshToken() : setIsLoading(false);
+        !auth?.accessToken && persist ? verifyRefreshToken() : setIsLoading(false);
         
+
         return () => isMounted = false;
     }, [])
-    // console.log(persist)
+
     useEffect(() => {
         // console.log(`isLoading: ${isLoading}`)
         // console.log(`aT: ${JSON.stringify(auth?.accessToken)}`)
@@ -37,9 +38,9 @@ const PersistLogin = () => {
 
     return (
         <>
-            { !persist ?
-            <Outlet /> :
-                 isLoading
+            {!persist
+                ? <Outlet />
+                : isLoading
                     ? <p>Loading...</p>
                     : <Outlet />
             }

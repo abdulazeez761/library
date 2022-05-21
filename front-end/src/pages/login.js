@@ -2,14 +2,13 @@ import { useRef, useState, useEffect , useContext } from 'react';
 import axios from 'axios'
 import UseAuth from '../hooks/useAuth';
 import {Link , useNavigate , useLocation} from 'react-router-dom'
-
+import './login.css'
 const Login = () => {
     const { persist , setPersist} = UseAuth()
     const setAuth = UseAuth()
     
     const navigate = useNavigate()
     const location = useLocation()
-    // console.log(location.state.from.pathname)
     const from = location.state?.from?.pathname || '/';
     
     const userRef = useRef();
@@ -67,12 +66,13 @@ const Login = () => {
     }, [persist])
     return (
         <>
-       
-                <section>
+            <div className='box-wrapper'>
+                <section className='box'>
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                     <h1>Sign In</h1>
                     <form onSubmit={handleSubmit}>
-                        <label htmlFor="username">Username:</label>
+                    <div>
+                       
                         <input
                             type="text"
                             id="username"
@@ -83,8 +83,10 @@ const Login = () => {
                            
                             required
                         />
-
-                        <label htmlFor="password">Password:</label>
+                         <label htmlFor="username">Username:</label>
+                    </div>
+                    <div>
+                       
                         <input
                             type="password"
                             id="password"
@@ -93,25 +95,28 @@ const Login = () => {
                             autoComplete="off"
                             required
                         />
+                         <label htmlFor="password">Password:</label>
+                        </div>
                         <button>Sign In</button>
                     </form>
                     <p>
                         Need an Account?<br />
                         <Link to ={'/register'} className="line">
-                            {/*put router link here*/}
                             Sign Up
                         </Link>
                     </p>
-                    <div className="persistCheck">
+                    <div className="persistCheck"> 
+                    <label htmlFor="persist">Trust This Device?</label>
                     <input
                         type="checkbox"
                         id="persist"
                         onChange={togglePersist}
                         checked={persist}
                     />
-                    <label htmlFor="persist">Trust This Device</label>
+                   
                 </div>
                 </section>
+                </div>
             
         </>
     )

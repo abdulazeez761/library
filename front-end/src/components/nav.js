@@ -3,7 +3,6 @@ import './nav.css'
 import {NavLink , useNavigate} from 'react-router-dom'
 import logoImage from '../assets/imgs/logo.png'
 import UseLogOut from "../hooks/useLogOut";
-import UseAuth from "../hooks/useAuth";
 function Nav(){
     const [isOpen, setIsOpen] = useState(false);
     const navigate = useNavigate()
@@ -14,7 +13,6 @@ function Nav(){
         await logOut();
         navigate('/')
     }
-    console.log(isLoggedIn)
         return(
             <div className="nav-container">
         <nav>
