@@ -5,12 +5,12 @@ import Quote from "../components/quote";
 import Gallery from "../components/Gallery";
 function Home() {
     return (
-       <div>
-           <Slider />
-           <Intro />
-           <Quote />
-           <Gallery />
-       </div>
+        <div>
+            <Slider />
+            <Intro />
+            <Quote />
+            <Gallery />
+        </div>
     )
 }
 export default Home;

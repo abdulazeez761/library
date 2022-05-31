@@ -2,12 +2,13 @@ import { useState , useEffect } from "react"
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
 import UseAuth from "../hooks/useAuth";
-const Users = () =>{
+//user profiles , what the user has posted
+const UserBooks = () =>{
     const [users , setUsers] = useState([])
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
     const location = useLocation();
-    const {auth} = UseAuth()
+
     
     useEffect(()=>{
       let isMounted = true;
@@ -62,4 +63,4 @@ const Users = () =>{
         </article>
     )
 }
-export default Users
+export default UserBooks

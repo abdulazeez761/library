@@ -7,9 +7,9 @@ function Filter() {
     <div className='Filter'>
       Filter Component
     </div>
-    
+
   );
-} 
+}
 
 // Filter.propTypes = {};
 
