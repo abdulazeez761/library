@@ -5,7 +5,7 @@ import Chat from "../components/Chat";
 import { SelectedUserProvider } from '../context/selectedUserProvider';
 import { ContactsProvider } from "../context/contactsProvider";
 import Contacts from "../components/Contacts";
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { MyContactsProvider } from "../context/myContacts";
 
 const ChatPage = () => {
     const { auth } = useAuth()
@@ -17,14 +17,18 @@ const ChatPage = () => {
     return (
         <div className="d-flex" style={{ height: '89vh' }}>
             <ContactsProvider>
+
                 <SelectedUserProvider>
-                    <Contacts />
-                    <Chat />
+                    <MyContactsProvider>
+                        <Contacts />
+                        <Chat />
+                    </MyContactsProvider>
                     {/* <Routes>
                         <Route path="/:user" element={<Chat />} />
                     </Routes> */}
 
                 </SelectedUserProvider>
+
             </ContactsProvider>
         </div>
     )

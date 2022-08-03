@@ -7,6 +7,7 @@ const UseLogOut = () => {
     const logout = async () => {
         setAuth({});
         localStorage.removeItem("loggedIn");
+        localStorage.removeItem("username");
         try {
             const response = await axios('/logout', {
                 withCredentials: true

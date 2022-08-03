@@ -1,19 +1,21 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+const fileUpload = require('express-fileupload');
 const port = 4000
-
-
-const http = require("http");
-const { Server } = require("socket.io");
-
 const cookie = require('cookie-parser')
 const formidable = require('express-formidable');
 const core = require('cors')
+const bodyParser = require('body-parser');
+const upload = require('./middleware/uploadFiles')
+const http = require("http");
+const { Server } = require("socket.io");
+
 const collegeData = require('./router/collegeRouter')
 const registerFunction = require('./router/registerRouter')
 const loginFunction = require('./router/loginRouter')
 const refreshToken = require('./router/refreshTokenRouter')
 const logOutFunction = require('./router/logOutRouter')
+const storeContact = require('./router/storeContactRouter')
+const addBookRouter = require('./router/addBookRouter')
 const dierectChatRouter = require('./router/dierctChatRouter')
 const getUser = require('./router/getUserRouter')
 const verrify = require('./middleware/verifyJWT')
@@ -26,18 +28,30 @@ const corsOptions = {
     optionSuccessStatus: 200,
     methods: ["GET", "POST"]
 }
+
+
+// app.use(fileUpload({
+//     createParentPath: true
+// }));
+
 app.use(core(corsOptions));
+
 app.use(formidable())
+
 app.use(cookie())
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: false }));
+
+
+
+
 app.use(collegeData)
 app.use(registerFunction)
 app.use(loginFunction)
 app.use(refreshToken)
 app.use(logOutFunction)
 app.use(getUser)
-// app.use(dierectChatRouter)
+app.use(storeContact)
+app.use(addBookRouter)
+
 const io = new Server(server, {
     cors: corsOptions,
 });
@@ -86,7 +100,7 @@ const io = new Server(server, {
 //     socket.broadcast.emit("user connected", {
 //         userID: socket.id,
 //         username: socket.username,
-//     });
+//     }); 
 
 
 // });
@@ -114,7 +128,7 @@ io.on("connection", (socket) => {
         });
     }
     socket.emit("users", users);
-    console.log(users);
+    // console.log(users);
 
     socket.broadcast.emit("user connected", {
         userID: socket.id,
@@ -124,13 +138,16 @@ io.on("connection", (socket) => {
     });
 
     socket.on("private message", ({ messages, to, username }) => {
-        console.log("Content:", messages, " To:", to, 'username', username);
+        // console.log("Content:", messages, " To:", to, 'username', username);
         socket.to(to).emit("private message", {
             content: messages,
             from: socket.id,
             username: socket.username
         });
+
     });
+
+
 });
 
 server.listen(port, () => {

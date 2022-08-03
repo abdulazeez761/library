@@ -25,9 +25,6 @@ exports.LoginFunction = async (req, res, nex) => {
         roles = result
 
     });
-
-
-
     try {
         const unencryptedPassword = await bcrypt.compare(pwd, rows[0]['pwd'])
         if (rows.length <= 0) return res.sendStatus(401);
@@ -43,12 +40,12 @@ exports.LoginFunction = async (req, res, nex) => {
 
                 },
                 process.env.ACCESS_TOKEN_SECRET,
-                { expiresIn: '15s' }//15m
+                { expiresIn: '15m' }//15m
             );
             const refreshToken = jwt.sign(
                 { "username": rows[0]['user_name'] },
                 process.env.REFRESH_TOKEN_SECRET,
-                { expiresIn: '1d' }
+                { expiresIn: '8d' }
             );
             const currentUser = { ...rows, refreshToken }
             let token = currentUser['refreshToken']

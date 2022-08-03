@@ -5,11 +5,14 @@ import useSelecteUser from '../hooks/useSelectedUser';
 import useCurrentUser from '../hooks/useCurrentUser';
 import { Link } from 'react-router-dom';
 import './contacts.css'
+import axios from 'axios';
+
 export default function Contacts() {
 
     const [currentUser, setCurrentUser] = useCurrentUser([])
     const { selectedUser, setSelectedUser } = useSelecteUser()
-
+    const [myContact, setMyContact] = useState([])
+    const username = localStorage.username
     const initReactiveProperties = (user) => {
         user.connected = true;
         user.messages = [];
@@ -42,37 +45,39 @@ export default function Contacts() {
             setCurrentUser(online => {
                 return [...online, user]
             });
-            // setCurrentUser(online => ([{ ...online, [currentUser.length]: user }]))
-
         })
     }, [])
 
-    // useEffect(() => {
-    //     Socket.on("user disconnected", (id) => {
-    //         for (let i = 0; i < currentUser.length; i++) {
-    //             const user = currentUser[i];
-    //             if (user.userID == id) {
-    //                 user.connected = false;
-    //                 break;
-    //             }
-    //         }
+    useEffect(() => {
+        axios({
+            "method": "GET",
+            "url": "http://localhost:4000/userContacts",
+            "headers": {}, "params": {}
+        }).then((response) => {
 
-    //     });
-
-    // }, [])
+            const APIResponse = response.data // This is response data from AXIOS
+            setMyContact(APIResponse.data) // Only Response from API is set in state
 
 
+        })
+            .catch((error) => {
+                console.log(error)
+            })
+
+    }, [])
+    console.log(selectedUser)
 
     return (
         <div>
-
+            <h3>All Contacts</h3>
             {
                 currentUser.map((user, idx) => {
                     return (
                         // <Link className='link' to={`${user.username}`} key={idx} >
-                        <div key={idx} className='user-containter'>
-                            <div  >
 
+                        <div key={idx} className='user-containter'>
+
+                            <div>
                                 <p onClick={() => {
                                     setSelectedUser(user)
                                 }} >
@@ -81,13 +86,31 @@ export default function Contacts() {
                                 </p>
 
                             </div>
-
                         </div>
                         // </Link>
                     )
                 })
 
             }
+            <h1>My Contacts</h1>
+            <div>
+                <div className='user-containter'>
+                    {
+                        myContact.map((contact, index) => {
+                            return (
+                                <div className='nothing' key={index}>
+                                    <p onClick={() => {
+                                        setSelectedUser(contact.toUserName)
+                                    }} > {contact.sender == username ? contact.toUserName : ''} </p>
+                                    <p onClick={() => {
+                                        setSelectedUser(contact.sender)
+                                    }} > {contact.toUserName == username ? contact.sender : ''} </p>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+            </div>
 
         </div >
     )

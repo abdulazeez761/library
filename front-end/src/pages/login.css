@@ -66,6 +66,11 @@
   border-radius: 2em;
 }
 
+.box button:hover {
+  background: #000000;
+  transition: all 0.2s ease-in-out 0s;
+}
+
 .box form div {
   position: relative;
 }
@@ -96,14 +101,11 @@
 .box input:valid,
 .box textarea:valid {
   border-bottom: 2px solid #d0a773;
-  ;
-
 }
 
 .line {
   text-decoration: none;
   color: rgb(117, 117, 117) !important;
-
 }
 
 .line:hover {

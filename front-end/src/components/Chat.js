@@ -3,14 +3,17 @@ import { useState, useRef, useEffect } from "react";
 import { Form, InputGroup, Button } from "react-bootstrap";
 import useSelecteUser from "../hooks/useSelectedUser";
 import useCurrentUser from '../hooks/useCurrentUser';
+import useMyContacts from '../hooks/useMyContacts';
+import axios from "axios"
 function Chat() {
     const [message, setMessage] = useState([])
     const { selectedUser, setSelectedUser } = useSelecteUser()
     const [currentUser, setCurrentUser] = useCurrentUser([])
     const [chatInfo, setChatInfo] = useState([])
     const [messageContent, setMessageContent] = useState([])
+    const { myContacts, setNewContact } = useMyContacts([])
     // console.log(message)
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault()
 
         if (selectedUser) {
@@ -23,7 +26,25 @@ function Chat() {
 
         }
         setMessageContent('')
+
+        //creating a contacts in the database
+        try {
+            await axios.post('http://localhost:4000/direct',
+                JSON.stringify({ selectedUser }),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
+                }
+            ).then((res) => {
+                console.log(res)
+            })
+
+        } catch (err) {
+            console.log(err)
+        }
     }
+    // console.log(selectedUser)
+
 
     // to check who send the messages 
     Socket.on("private message", function ({ content, from, username }) {
@@ -40,12 +61,12 @@ function Chat() {
                 setMessage(messagesList);
                 if (user !== selectedUser) {
                     user.hasNewMessages = true;
-
                 }
 
 
                 break;
             }
+
 
         }
 

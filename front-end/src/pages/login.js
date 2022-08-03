@@ -41,6 +41,7 @@ const Login = () => {
             const roles = response?.data?.roles;
             setAuth.setAuth({ user, pwd, roles, accessToken })
             localStorage.setItem("loggedIn", 'true');
+            localStorage.setItem("username", user);
             setUser('');
             setPwd('');
             navigate(from, { replace: true })
@@ -80,7 +81,6 @@ const Login = () => {
                                 autoComplete="off"
                                 onChange={(e) => setUser(e.target.value)}
                                 value={user}
-
                                 required
                             />
                             <label htmlFor="username">Username:</label>
