@@ -5,7 +5,7 @@ const cookie = require('cookie-parser')
 const formidable = require('express-formidable');
 const core = require('cors')
 const bodyParser = require('body-parser');
-const upload = require('./middleware/uploadFiles')
+// const upload = require('./middleware/uploadFiles')
 const http = require("http");
 const { Server } = require("socket.io");
 
@@ -144,6 +144,7 @@ io.on("connection", (socket) => {
             from: socket.id,
             username: socket.username
         });
+
 
     });
 

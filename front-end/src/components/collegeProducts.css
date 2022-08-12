@@ -1,0 +1,276 @@
+:root {
+    --surface-color: #fff;
+    --curve: 40;
+}
+
+* {
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background-color: #fef8f8;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 4rem 5vw;
+    padding: 0;
+    list-style-type: none;
+}
+
+.card {
+    position: relative;
+    display: block;
+    height: 100%;
+    border-radius: calc(var(--curve) * 1px);
+    overflow: hidden;
+    text-decoration: none;
+}
+
+.card__image {
+    width: 100%;
+    height: auto;
+}
+
+.card__overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    /* border-radius: calc(var(--curve) * 1px); */
+    background-color: var(--surface-color);
+    transform: translateY(100%);
+    transition: .2s ease-in-out;
+    /* */
+}
+
+.card:hover .card__overlay {
+    transform: translateY(0);
+    border-radius: 10% 0 0 0;
+}
+
+.card__header {
+    position: relative;
+    gap: 2em;
+    padding: 1em;
+    padding-right: 1.2em;
+    border-radius: calc(var(--curve) * 1px) 0 0 0;
+    background-color: var(--surface-color);
+    transform: translateY(-100%);
+    transition: .2s ease-in-out;
+
+}
+
+.card__arc {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+    z-index: 1;
+}
+
+
+
+.card:hover .card__header {
+    transform: translateY(0);
+}
+
+.card__thumb {
+    flex-shrink: 0;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.card__title {
+    font-size: 0.9em;
+    margin: 0 0 -8px;
+    color: #6A515E;
+    white-space: nowrap;
+    width: min-content;
+    overflow: hidden;
+}
+
+.card__status {
+    font-size: .8em;
+    color: #D7BDCA;
+
+}
+
+.user-name-par {
+    font-size: .8em;
+    color: #D7BDCA;
+    display: flex;
+    white-space: nowrap;
+
+}
+
+.card__description {
+    padding: 0 2em 2em;
+    margin: 0;
+    color: #D7BDCA;
+    font-family: "MockFlowFont";
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
+
+.book-info {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 2em;
+    padding-left: 1em;
+    padding-bottom: 0.7em;
+
+}
+
+
+.details-book-button {
+    position: relative;
+    width: max-content;
+    font-size: 12px;
+
+}
+
+.text-auther {
+    position: absolute;
+    top: 0;
+    margin-left: -9px;
+    font-size: 14px;
+    background: #ffffff;
+    color: #ffffff;
+    padding: 1px 9px;
+    border-radius: 10px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    width: max-content;
+    z-index: 20;
+}
+
+.text-auther::before {
+    position: absolute;
+    content: "";
+    height: 8px;
+    width: 8px;
+    background: #d0a773;
+    bottom: -3px;
+    left: 50%;
+    transform: translate(-50%) rotate(45deg);
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.text-auther-icon {
+    position: relative;
+    background: #ffffff;
+    width: max-content;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+}
+
+
+
+.text-auther-icon:hover .text-auther {
+    top: -50px;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    width: max-content;
+    background: #d0a773;
+    color: #ffffff;
+}
+
+.text-icon {
+    position: relative;
+    left: 15px;
+    font-size: 26px;
+    margin-bottom: 0.7em;
+
+}
+
+.text-auther-icon:hover .text-icon {
+    color: rgb(207, 183, 116);
+}
+
+.more-details-button button {
+    cursor: pointer;
+    background: #838383;
+    color: #FFF;
+    border-style: none;
+    border-radius: 1em;
+}
+
+.more-details-button button:hover {
+    background: #d0a773;
+    transition: all 0.3s ease-in-out 0s;
+}
+
+.more-details-icon {
+    font-size: 15px;
+}
+
+
+
+.book-type {
+    display: flex;
+    justify-content: space-around;
+    font-size: 0.7em;
+}
+
+.book-type div {
+    padding-top: 1em;
+    /* padding-right: 11em; */
+    white-space: nowrap;
+    width: 60%;
+    overflow: hidden;
+    text-overflow: 'ellipsis';
+
+}
+
+.book-type div p {
+    color: #d0a773;
+    font-weight: 500;
+}
+
+.book-type .college-par p {
+    border: 1px solid rgb(141, 141, 141);
+    width: max-content;
+    padding-right: 1em;
+    padding-left: 1em;
+    border-radius: 8px;
+}
+
+
+
+.book-info-with-user {
+    position: relative;
+    display: flex;
+    right: 6%;
+    gap: 1em;
+    padding: 1em;
+}
+
+.book__status {
+    font-size: 0.8em;
+    display: flex;
+    justify-content: space-between;
+    color: #2b2b2b;
+}
+
+.book__status .notEmpty {
+    border: 1px solid rgb(141, 141, 141);
+    /* color: rgb(207, 183, 116); */
+    padding-right: 1em;
+    padding-left: 1em;
+    border-radius: 8px;
+}

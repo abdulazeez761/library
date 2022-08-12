@@ -18,11 +18,13 @@ export default function Contacts() {
         user.messages = [];
         user.hasNewMessages = false;
     };
+    // console.log(currentUser)
     useEffect(() => {
 
         Socket.on("users", (users) => {
             users.forEach((user) => {
                 user.self = user.userID === Socket.id;
+                console.log(user)
                 initReactiveProperties(user)
             });
 
@@ -38,6 +40,7 @@ export default function Contacts() {
         });
 
     }, [setCurrentUser])
+    // if aonther user connected it'sgonna add that user to the users list
     useEffect(() => {
         Socket.on("user connected", (user) => {
             // console.log(user)
@@ -65,13 +68,14 @@ export default function Contacts() {
             })
 
     }, [])
-    console.log(selectedUser)
+    // console.log(selectedUser)
 
     return (
         <div>
             <h3>All Contacts</h3>
             {
                 currentUser.map((user, idx) => {
+                    // console.log(user)
                     return (
                         // <Link className='link' to={`${user.username}`} key={idx} >
 

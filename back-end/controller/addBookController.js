@@ -13,14 +13,19 @@ exports.addBook = async (req, res, next) => {
         college = req.fields.collegeOption,
         email = req.fields.emailOption,
         phoneNumber = req.fields.phoneNumberOption,
-        [sale, exchange, donation] = req.fields.postAs,
+        sale = req.fields.sale,
+        donation = req.fields.donation,
+        exchange = req.fields.exchange,
         choosedSubject = req.fields.choosedSubject,
         major = req.fields.major,
-        image = ''
+        image = '',
+        userName = rows[0].user_name
 
+    //we will add user avatart
 
     if (university == 'choose a university' || college == 'choose a college' || major == 'choose a major' || choosedSubject == 'choose a subject') return res.sendStatus(409)
     if (university.length <= 0 || college.length <= 0 || choosedSubject.length <= 0 || major.length <= 0) return res.sendStatus(204)
+    if (sale == false && donation == false && exchange == false) return res.sendStatus(204)
     let [subjectsRow, subjectsMeta] = await getSubjects.subject()
     for (let i = 0; i < subjectsRow.length; i++) {
 
@@ -31,10 +36,11 @@ exports.addBook = async (req, res, next) => {
         }
     }
 
-    console.log(userId, university, college, major, choosedSubject, email, phoneNumber, sale, image)
+    console.log(userId, university, college, major, choosedSubject, email, sale, exchange, donation, phoneNumber, image, userName)
+
     // console.log(sale, exchange, donation)
 
-    productsModle.storProducts(userId, university, college, major, choosedSubject, email, phoneNumber, sale, image).then(
+    productsModle.storProducts(userId, university, college, major, choosedSubject, email, phoneNumber, sale, exchange, donation, image, userName).then(
         res.status(200).json({
             'success': ` the book has been puplished`
         }))

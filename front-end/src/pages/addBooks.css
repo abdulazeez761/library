@@ -1,5 +1,12 @@
 @import url("https://use.fontawesome.com/releases/v5.13.0/css/all.css");
 
+
+.box {
+    height: fit-content;
+    margin-top: 4em;
+
+}
+
 .selecet-containter {
     padding-bottom: 2.5em;
 }
@@ -37,7 +44,6 @@
 }
 
 ul.ks-cboxtags li input[type="checkbox"]:checked+label::before {
-
     content: "\f00c";
     transform: rotate(-360deg);
     transition: transform .3s ease-in-out;

@@ -3,6 +3,7 @@ import Slider from "../components/Slider";
 import Intro from "../components/intro";
 import Quote from "../components/quote";
 import Gallery from "../components/Gallery";
+import Footer from '../components/footer';
 function Home() {
     return (
         <div>
@@ -10,6 +11,7 @@ function Home() {
             <Intro />
             <Quote />
             <Gallery />
+            <Footer />
         </div>
     )
 }

@@ -24,13 +24,22 @@ const AddBooks = React.memo(props => {
     const [emailOption, setEmailOption] = useState('')
     const [phoneNumberOption, setPhoneNumbeOption] = useState('')
 
-    const [postAs, setPostAs] = useState([])
+    const [sale, setSale] = useState(false)
+    const [exchange, setExchange] = useState(false)
+    const [donation, setDonation] = useState(false)
+
     const [major, setMajor] = useState([]);
     const [majorData, setMajorData] = useState([{}])
     const [subjectData, setSubjectData] = useState([])
     const [choosedSubject, setChoosedSubject] = useState()
     const [errMessage, setErrMessage] = useState('')
     const [success, setSuccess] = useState(false);
+
+    // disabled controller 
+
+    const [saleDisabled, setsaleDisabled] = useState(false)
+
+    const [donationDisabled, setDonationDisabled] = useState(false)
 
     useEffect(() => {
         let isMounted = true;
@@ -47,9 +56,7 @@ const AddBooks = React.memo(props => {
 
             } catch (err) {
                 console.log(err)
-
                 navigate('/login', { state: { from: location }, replace: true });
-
             }
             return () => {
                 isMounted = false;
@@ -59,6 +66,7 @@ const AddBooks = React.memo(props => {
         getCollege()
 
     }, [])
+
     useEffect(() => {
         let isMounted = true;
         const controller = new AbortController(); //cancle req when the comounent unmounte
@@ -168,7 +176,9 @@ const AddBooks = React.memo(props => {
                     collegeOption,
                     emailOption,
                     phoneNumberOption,
-                    postAs,
+                    sale,
+                    exchange,
+                    donation,
                     choosedSubject,
                     major
 
@@ -182,13 +192,17 @@ const AddBooks = React.memo(props => {
                 })
                 .then((res) => {
                     if (res.status == 200) {
-                        setUniversityOption('')
-                        setCollegeOption('')
-                        setEmailOption('')
-                        setPhoneNumbeOption('')
-                        setPostAs([])
-                        setChoosedSubject('')
+                        setUniversityOption('');
+                        setCollegeOption('');
+                        setEmailOption('');
+                        setPhoneNumbeOption('');
+                        setChoosedSubject('');
                         setMajor('')
+                        setSale(false);
+                        setDonation(false);
+                        setExchange(false);
+                        setDonationDisabled(false);
+                        setsaleDisabled(false);
                         setSuccess(true);
                     }
                     if (res.status == 204) {
@@ -209,6 +223,8 @@ const AddBooks = React.memo(props => {
 
 
     }
+
+
     useEffect(() => {
         setErrMessage('');
     }, [universityOption, choosedSubject, major, collegeOption])
@@ -233,6 +249,7 @@ const AddBooks = React.memo(props => {
 
                     </div>
                 ) : (
+
                     <div className='box-wraber'>
                         {isPending && <p>loading ....</p>}
                         <p ref={errRef} className={errMessage ? "errmsg" : "offscreen"} aria-live="assertive">{errMessage}</p>
@@ -364,12 +381,39 @@ const AddBooks = React.memo(props => {
 
                             <div className="ks-cboxtags">
                                 <p>post the book for : </p>
-                                <ul className="ks-cboxtags" onChange={(e) => setPostAs(postFor => {
-                                    return [...postFor, e.target.value]
-                                })}>
-                                    <li><input type="checkbox" id="checkboxOne" value="sale" /><label htmlFor="checkboxOne">sale</label></li>
-                                    <li><input type="checkbox" id="checkboxTwo" value="exchange" /><label htmlFor="checkboxTwo">exchange</label></li>
-                                    <li><input type="checkbox" id="checkboxThree" value="donation" /><label htmlFor="checkboxThree">donation</label></li>
+                                <ul className="ks-cboxtags">
+                                    <li>
+                                        <input type="checkbox" id="checkboxOne" value="sale"
+                                            onChange={(e) => {
+                                                setSale(!sale)
+                                                setDonationDisabled(!donationDisabled)
+                                            }}
+                                            disabled={saleDisabled}
+
+
+                                        />
+                                        <label htmlFor="checkboxOne">sale</label></li>
+                                    <li>
+                                        <input type="checkbox" id="checkboxTwo" value="exchange"
+                                            onChange={(e) => {
+                                                setExchange(!exchange)
+                                            }}
+
+                                        />
+                                        <label htmlFor="checkboxTwo">exchange</label>
+                                    </li>
+                                    <li>
+                                        <input type="checkbox" id="checkboxThree" value="donation"
+                                            onChange={(e) => {
+                                                setDonation(!donation)
+                                                setsaleDisabled(!saleDisabled)
+
+                                            }}
+                                            disabled={donationDisabled}
+
+                                        />
+                                        <label htmlFor="checkboxThree">donation</label>
+                                    </li>
                                 </ul>
                             </div>
                             <button>submit</button>

@@ -1,75 +1,118 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react"
-import { Buffer } from 'buffer';
 import axios from "axios";
+import './collegeProducts.css'
+import Button from 'react-bootstrap/Button';
+import { RiMessengerLine } from "react-icons/ri";
+import { MdReadMore } from "react-icons/md";
+import useSelecteUser from '../hooks/useSelectedUser';
 
 const Books = () => {
-    const { name, id } = useParams()
-    const [books, setBooks] = useState()
-    const [loading, setLoading] = useState(true)
-    const [booksImage, setbooksImage] = useState([])
+    const { name, id } = useParams();
+    const [books, setBooks] = useState();
+    const [loading, setLoading] = useState(true);
+    const { selectedUser, setSelectedUser } = useSelecteUser()
+
     useEffect(() => {
-        const getUsers = async () => {
+
+        const getBooks = async () => {
             try {
                 await axios.get('http://localhost:4000/products', {
                 }).then((res) => {
                     setBooks(res.data.data);
-
                     setLoading(false)
-
                 })
             } catch (err) {
                 console.log(err)
             }
         }
-        getUsers()
+        getBooks()
     }, [])
-    // we're fetching  the sunjectsAPI to get the image of the book 
-    useEffect(() => {
-        const getMajor = async () => {
-            try {
-                await axios.get('http://localhost:4000/subjects', {
-                }).then((res) => {
-                    setbooksImage(res.data.data)
 
-                })
-            } catch (err) {
-                console.log(err)
-            }
-        }
-        getMajor()
-    }, [])
+
 
     return (
-        <>
+        <div className="cards">
+
             {
+
+
                 loading ? <p>loading....</p> : books.map((data, index) => {
 
-
-
-                    console.log(data)
                     if (name.replace('-', ' ') == data.college) {
 
-
                         return (
+
                             <div key={index}>
-                                <img style={{ width: 100, height: 70, resizeMode: Image.resizeMode = "contain", borderWidth: 1, borderColor: 'red' }} src={data.image} />
-                                <p>{data.subject}</p>
-                                <p>{data.college}</p>
-                                <p>{data.major}</p>
-                                <p>{data.subject}</p>
+
+                                <div className="card">
+
+                                    <img src={data.image} className="card__image" alt="" />
+                                    <div className="card__overlay">
+
+                                        <div className="card__header">
+                                            <div className="book-type">
+                                                <div className="college-par">
+                                                    <p> {data.college}</p>
+                                                </div>
+                                                <div>
+                                                    <p > {data.university}</p>
+                                                </div>
+
+                                                {/* <span className="card__status">time goes here</span> */}
+                                            </div>
+                                            <div className="book-info-with-user">
+                                                <svg className="card__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>
+                                                <img className="card__thumb" src="https://i.imgur.com/7D7I6dI.png" alt="" />
+                                                <div className="card__header-text">
+                                                    <h3 className="card__title">{data.subject}</h3>
+                                                    <span className="user-name-par">{data.userName} </span>
+                                                </div>
+
+                                            </div>
+                                            <div className="book__status">
+                                                <p className={data.sale == 1 ? 'notEmpty' : 'empty'}>{data.sale == 1 ? 'sale' : ''}</p>
+                                                <p className={data.exchange == 1 ? 'notEmpty' : 'empty'}>{data.exchange == 1 ? 'exchange' : ''}</p>
+                                                <p className={data.donation == 1 ? 'notEmpty' : 'empty'} >{data.donation == 1 ? 'donation' : ''}</p>
+
+                                                <p className="card__status">10:00AM</p>
+                                            </div>
+                                        </div>
+                                        <div className="book-info">
+                                            <div className="more-details-button">
+                                                <button variant="outline-secondary" className="details-book-button">more details <MdReadMore className="more-details-icon" /></button>
+                                            </div>
+                                            <div className="text-auther-button">
+                                                <div className="text-auther-icon">
+                                                    <span className="text-auther">message</span>
+                                                    <span><RiMessengerLine className="text-icon" /></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
+
                         )
+
+
+
 
 
                     }
 
 
+
+
+
+
                 })
 
             }
-        </>
+        </div >
 
     )
 }
 export default Books
+
