@@ -128,7 +128,7 @@ io.on("connection", (socket) => {
         });
     }
     socket.emit("users", users);
-    // console.log(users);
+
 
     socket.broadcast.emit("user connected", {
         userID: socket.id,

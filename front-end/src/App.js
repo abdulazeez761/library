@@ -12,7 +12,7 @@ import Error from './pages/Error'
 import AddBooks from './pages/addBooks';
 import PersistLogin from './components/PersistLogin'
 import RequireAuth from './components/RequireAuth';
-// import { SelectedUserProvider } from './context/selectedUserProvider';
+import ProductsGenrePage from './pages/ProductsGenrePage';
 const ROLES = {
   "User": 2001,
   "Editor": 1984,
@@ -42,7 +42,10 @@ function App() {
               {/* </SelectedUserProvider> */}
             </Route>
           </Route>
-          <Route path='college/:name/:id' element={<CollagePage />} />
+          <Route path='college/:name/:id' element={<CollagePage />}
+          />
+          <Route path='college/:name/:id/:genre' element={<ProductsGenrePage />}
+          />
           <Route path='*' element={<Error />} />
         </Routes>
 
