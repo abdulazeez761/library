@@ -128,7 +128,7 @@ body {
     justify-content: space-between;
     padding-right: 2em;
     padding-left: 1em;
-    padding-bottom: 0.7em;
+
 
 }
 
@@ -266,6 +266,7 @@ body {
     display: flex;
     justify-content: space-between;
     color: #2b2b2b;
+    margin-bottom: -10px;
 }
 
 .book__status .notEmpty {
@@ -282,10 +283,20 @@ body {
 }
 
 .mySwiper .card-siper-container .card {
-    border-radius: 3em;
+    border-radius: 24px;
 }
 
 .swiper-slide {
     padding-bottom: 3em;
 
+}
+
+
+.lineArrowRight {
+    text-decoration: none;
+    color: rgb(117, 117, 117) !important;
+}
+
+.lineArrowRight:hover {
+    color: rgb(68, 68, 68) !important;
 }

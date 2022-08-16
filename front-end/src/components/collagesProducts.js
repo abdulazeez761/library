@@ -12,7 +12,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper";
-
+import { Navigation } from "swiper";
 import { useLocation } from 'react-router-dom'
 const Books = () => {
     const { name, id } = useParams();
@@ -45,9 +45,9 @@ const Books = () => {
         <>
 
             <div className="cards">
-                <div style={{ position: "absolute", margin: '-3em', paddingLeft: '5em', display: 'flex', width: '100%', justifyContent: 'space-between', }}>
-                    <p>sales or exchange section</p>
-                    <Link to={`${location.pathname}/sale`} replace >
+                <div style={{ position: "absolute", margin: '-3em', display: 'flex', width: '100%', justifyContent: 'space-between', }}>
+                    <h4>sales  section</h4>
+                    <Link to={`${location.pathname}/sale`} replace className="lineArrowRight">
                         <p style={{ fontSize: '1.5em' }}  >
                             <HiOutlineArrowRight />
                         </p>
@@ -56,10 +56,13 @@ const Books = () => {
                 <Swiper
                     slidesPerView={6}
                     spaceBetween={30}
-                    pagination={{
-                        clickable: true,
-                    }}
-                    modules={[Pagination]}
+                    // pagination={{
+                    //     clickable: true,
+
+                    // }}
+
+                    // modules={[Pagination]}
+                    navigation={true} modules={[Navigation]}
                     className="mySwiper"
 
                 >
@@ -101,14 +104,14 @@ const Books = () => {
                                                                     <p className={data.sale == 1 ? 'notEmpty' : 'empty'}>{data.sale == 1 ? 'sale' : ''}</p>
                                                                     <p className={data.exchange == 1 ? 'notEmpty' : 'empty'}>{data.exchange == 1 ? 'exchange' : ''}</p>
                                                                     <p className={data.donation == 1 ? 'notEmpty' : 'empty'} >{data.donation == 1 ? 'donation' : ''}</p>
-
                                                                     <p className="card__status">10:00AM</p>
                                                                 </div>
                                                             </div>
                                                             <div className="book-info">
                                                                 <div className="more-details-button">
-                                                                    <button variant="outline-secondary" className="details-book-button">more details <MdReadMore className="more-details-icon" /></button>
-                                                                </div>
+                                                                    <Link to={`${location.pathname}/sale/${data.book_ID}`} replace className="lineArrowRight">
+                                                                        <button variant="outline-secondary" className="details-book-button"> more details <MdReadMore className="more-details-icon" /></button>
+                                                                    </Link>                                                                </div>
                                                                 <div className="text-auther-button">
                                                                     <div className="text-auther-icon">
                                                                         <span className="text-auther">message</span>
@@ -140,17 +143,22 @@ const Books = () => {
                 </Swiper>
             </div>
             <div className="cards">
-                <div style={{ position: "absolute", margin: '-3em', paddingLeft: '5em', display: 'flex', width: '100%', justifyContent: 'space-between', }}>
-                    <p>donation section</p>
-                    <p style={{ fontSize: '1.5em' }}><HiOutlineArrowRight /></p>
+                <div style={{ position: "absolute", margin: '-3em', display: 'flex', width: '100%', justifyContent: 'space-between', }}>
+                    <h4>donation section</h4>
+                    <Link to={`${location.pathname}/donation`} replace className="lineArrowRight">
+                        <p style={{ fontSize: '1.5em' }}  >
+                            <HiOutlineArrowRight />
+                        </p>
+                    </Link>
                 </div>
                 <Swiper
                     slidesPerView={6}
                     spaceBetween={30}
-                    pagination={{
-                        clickable: true,
-                    }}
-                    modules={[Pagination]}
+                    // pagination={{
+                    //     clickable: true,
+                    // }}
+                    // modules={[Pagination]}
+                    navigation={true} modules={[Navigation]}
                     className="mySwiper"
 
                 >
@@ -200,7 +208,9 @@ const Books = () => {
                                                             </div>
                                                             <div className="book-info">
                                                                 <div className="more-details-button">
-                                                                    <button variant="outline-secondary" className="details-book-button">more details <MdReadMore className="more-details-icon" /></button>
+                                                                    <Link to={`${location.pathname}/donation/${data.book_ID}`} replace className="lineArrowRight">
+                                                                        <button variant="outline-secondary" className="details-book-button"> more details <MdReadMore className="more-details-icon" /></button>
+                                                                    </Link>
                                                                 </div>
                                                                 <div className="text-auther-button">
                                                                     <div className="text-auther-icon">
@@ -233,17 +243,22 @@ const Books = () => {
                 </Swiper>
             </div>
             <div className="cards">
-                <div style={{ position: "absolute", margin: '-3em', paddingLeft: '5em', display: 'flex', width: '100%', justifyContent: 'space-between', }}>
-                    <p>exchange or sale section</p>
-                    <p style={{ fontSize: '1.5em' }}><HiOutlineArrowRight /></p>
+                <div style={{ position: "absolute", margin: '-3em', display: 'flex', width: '100%', justifyContent: 'space-between', }}>
+                    <h4>exchange section</h4>
+                    <Link to={`${location.pathname}/exchange`} replace className="lineArrowRight">
+                        <p style={{ fontSize: '1.5em' }}  >
+                            <HiOutlineArrowRight />
+                        </p>
+                    </Link>
                 </div>
                 <Swiper
                     slidesPerView={6}
                     spaceBetween={30}
-                    pagination={{
-                        clickable: true,
-                    }}
-                    modules={[Pagination]}
+                    // pagination={{
+                    //     clickable: true,
+                    // }}
+                    // modules={[Pagination]}
+                    navigation={true} modules={[Navigation]}
                     className="mySwiper"
                 >
 
@@ -293,7 +308,10 @@ const Books = () => {
                                                             </div>
                                                             <div className="book-info">
                                                                 <div className="more-details-button">
-                                                                    <button variant="outline-secondary" className="details-book-button">more details <MdReadMore className="more-details-icon" /></button>
+                                                                    <Link to={`${location.pathname}/exchange/${data.book_ID}`} replace className="lineArrowRight">
+                                                                        <button variant="outline-secondary" className="details-book-button"> more details <MdReadMore className="more-details-icon" /></button>
+                                                                    </Link>
+
                                                                 </div>
                                                                 <div className="text-auther-button">
                                                                     <div className="text-auther-icon">

@@ -3,12 +3,18 @@ import { useState, useEffect } from "react"
 import axios from "axios";
 import { RiMessengerLine } from "react-icons/ri";
 import { MdReadMore } from "react-icons/md";
-import { HiOutlineArrowRight } from "react-icons/hi";
-// import './productsGenrePage.css'
+import { HiOutlineArrowLeft } from "react-icons/hi";
+import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom'
+
+
+import './productsGenrePageComponent.css'
 const ProdactGenrePageComponent = () => {
     const { name, id, genre } = useParams();
     const [books, setBooks] = useState();
     const [loading, setLoading] = useState(true);
+    const location = useLocation()
+
     useEffect(() => {
 
         const getBooks = async () => {
@@ -26,18 +32,21 @@ const ProdactGenrePageComponent = () => {
         getBooks()
     }, [])
 
+
     return (
         <div>
-
+            <h1>{genre} page</h1>
             <div className="cards">
-                {/* <div style={{ position: "absolute", margin: '-3em', paddingLeft: '5em', display: 'flex', width: '100%', justifyContent: 'space-between', }}>
-                    <p>sales or exchange section</p>
-                    <Link to={`${location.pathname}/sale`} replace >
+                <div style={{ position: "absolute", margin: '-3em', paddingLeft: '5em', display: 'flex', width: '100%', justifyContent: 'space-between', }}>
+                    <Link to="./.." replace className="lineArrowRight">
                         <p style={{ fontSize: '1.5em' }}  >
-                            <HiOutlineArrowRight />
+                            <HiOutlineArrowLeft />
                         </p>
                     </Link>
-                </div> */}
+
+
+                </div>
+
 
                 {
 
@@ -47,11 +56,10 @@ const ProdactGenrePageComponent = () => {
                         if (data[genre] == 1 && data.college == name) {
 
                             return (
-                                <div className="swiper-container" key={index}>
-
-                                    <div >
-                                        <div className="card">
-                                            <img src={data.image} className="card__image" alt="" />
+                                <div key={index} >
+                                    <div>
+                                        <div className="card  book-container-products-genre-page" >
+                                            <img src={data.image} className="card__image product-image" alt="" />
                                             <div className="card__overlay">
 
                                                 <div className="card__header">
@@ -84,7 +92,10 @@ const ProdactGenrePageComponent = () => {
                                                 </div>
                                                 <div className="book-info">
                                                     <div className="more-details-button">
-                                                        <button variant="outline-secondary" className="details-book-button">more details <MdReadMore className="more-details-icon" /></button>
+                                                        <Link to={`${location.pathname}/${data.book_ID}`} replace className="lineArrowRight">
+                                                            <button variant="outline-secondary" className="details-book-button"> more details <MdReadMore className="more-details-icon" /></button>
+                                                        </Link>
+
                                                     </div>
                                                     <div className="text-auther-button">
                                                         <div className="text-auther-icon">
@@ -100,12 +111,6 @@ const ProdactGenrePageComponent = () => {
 
                                 </div>
                             )
-
-
-
-
-
-
 
                         }
 
