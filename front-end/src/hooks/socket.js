@@ -1,8 +1,10 @@
 import { io } from "socket.io-client";
 
 const URL = "http://localhost:4000";
-const Socket = io(URL, { autoConnect: false });
-Socket.onAny((event, ...args) => {
+const socket = io(URL, { reconnection: false });
+socket.onAny((event, ...args) => {
     // console.log(event, args);
 });
-export default Socket
+
+
+export default socket;

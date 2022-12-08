@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Nav from './components/nav';
 import Home from './pages/Home';
 import About from './pages/About';
-import Filter from './pages/filter';
+import ProfilePage from './pages/profilePage'
 import CollagePage from './pages/colllagePage'
 import Login from './pages/login';
 import Register from './pages/register';
@@ -30,8 +30,6 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='about' element={<About />} />
-          <Route path='filter' element={<Filter />} />
-          <Route path='filter' element={<Filter />} />
           <Route path='login' element={<Login />} />
           <Route path='register' element={<Register />} />
           {/* this page can be accessed by the user how has 2001 role */}
@@ -39,6 +37,7 @@ function App() {
             <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
               <Route path='add-books' element={<AddBooks />} />
               {/* <SelectedUserProvider> */}
+              <Route path='profile' element={<ProfilePage />} />
               <Route path='direct/*' element={<ChatPage />} />
               {/* </SelectedUserProvider> */}
             </Route>
@@ -46,12 +45,12 @@ function App() {
           <Route path='college/:name/:id' element={<CollagePage />} />
           <Route path='college/:name/:id/:genre' element={<ProductsGenrePage />} />
           <Route path='college/:name/:id/:genre/:bookID' element={<ProductInfoPage />} />
+          <Route path='profile/:bookID' element={<ProductInfoPage />} />
           <Route path='*' element={<Error />} />
         </Routes>
 
       </div>
     </BrowserRouter>
-
   );
 
 }

@@ -6,8 +6,6 @@ import { MdReadMore } from "react-icons/md";
 import { HiOutlineArrowLeft } from "react-icons/hi";
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom'
-
-
 import './productsGenrePageComponent.css'
 const ProdactGenrePageComponent = () => {
     const { name, id, genre } = useParams();
@@ -16,13 +14,10 @@ const ProdactGenrePageComponent = () => {
     const location = useLocation()
 
     useEffect(() => {
-
         const getBooks = async () => {
             try {
-                await axios.get('http://localhost:4000/products', {
-                }).then((res) => {
+                await axios.get('http://localhost:4000/products').then((res) => {
                     setBooks(res.data.data);
-
                     setLoading(false)
                 })
             } catch (err) {
@@ -83,9 +78,9 @@ const ProdactGenrePageComponent = () => {
 
                                                     </div>
                                                     <div className="book__status">
-                                                        <p className={data.sale == 1 ? 'notEmpty' : 'empty'}>{data.sale == 1 ? 'sale' : ''}</p>
-                                                        <p className={data.exchange == 1 ? 'notEmpty' : 'empty'}>{data.exchange == 1 ? 'exchange' : ''}</p>
-                                                        <p className={data.donation == 1 ? 'notEmpty' : 'empty'} >{data.donation == 1 ? 'donation' : ''}</p>
+                                                        <p className={data.sale == 1 ? 'true-status' : 'false-status'}>{data.sale == 1 ? 'sale' : 'sale'}</p>
+                                                        <p className={data.exchange == 1 ? 'true-status' : 'false-status'}>{data.exchange == 1 ? 'exchange' : 'exchange'}</p>
+                                                        <p className={data.donation == 1 ? 'true-status' : 'false-status'} > {data.donation == 1 ? 'donation' : 'donation'}</p>
 
                                                         <p className="card__status">10:00AM</p>
                                                     </div>
@@ -107,8 +102,6 @@ const ProdactGenrePageComponent = () => {
                                             </div>
                                         </div>
                                     </div>
-
-
                                 </div>
                             )
 

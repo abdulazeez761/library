@@ -1,7 +1,7 @@
-body {
+/* body {
     display: grid;
     grid-template-rows: 1fr auto;
-    grid-template-areas: "main""footer";
+    grid-template-areas: "main" "footer";
     overflow-x: hidden;
     background: #F5F7FA;
     min-height: 100vh;
@@ -14,7 +14,9 @@ body .footer {
     display: grid;
     position: relative;
     grid-area: footer;
-    min-height: 12rem;
+    min-height: 15rem;
+    margin-top: 6em;
+
 }
 
 body .footer .bubbles {
@@ -105,4 +107,4 @@ body .footer .content>div .image {
     100% {
         bottom: var(--distance, 10rem);
     }
-}
+} */

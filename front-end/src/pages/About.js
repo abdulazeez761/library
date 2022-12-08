@@ -1,10 +1,11 @@
-import './About.css'
-function About(){
 
-    return(
-       <div>
-           About page
-       </div>
+import AboutComponent from '../components/AboutComponent';
+function About() {
+
+    return (
+        <div>
+            <AboutComponent />
+        </div>
     )
 }
 export default About;

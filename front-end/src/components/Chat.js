@@ -1,4 +1,4 @@
-import Socket from "../hooks/socket";
+import socket from "../hooks/socket";
 import { useState, useRef, useEffect } from "react";
 import { Form, InputGroup, Button } from "react-bootstrap";
 import useSelecteUser from "../hooks/useSelectedUser";
@@ -12,12 +12,16 @@ function Chat() {
     const [chatInfo, setChatInfo] = useState([])
     const [messageContent, setMessageContent] = useState([])
     const { myContacts, setNewContact } = useMyContacts([])
-    // console.log(message)
+    console.log(message) //recived or sent message
+    // console.log(selectedUser) //the user that has been selected
+    // console.log(currentUser) //connectedUsers
+    // console.log(messageContent) //for the inputs to stor the messages then send them 
     async function handleSubmit(e) {
         e.preventDefault()
-
+        //if the user has already connectd befor we should use his id that's been stord in the database
+        console.log(selectedUser)
         if (selectedUser) {
-            Socket.emit("private message", { messages: messageContent, to: selectedUser.userID, username: selectedUser.username });
+            socket.emit("private message", { messages: messageContent, to: selectedUser.userID, username: selectedUser.username });
 
             setMessage((message) => [
                 ...message,
@@ -36,7 +40,7 @@ function Chat() {
                     withCredentials: true
                 }
             ).then((res) => {
-                console.log(res)
+                // console.log(res)
             })
 
         } catch (err) {
@@ -47,11 +51,11 @@ function Chat() {
 
 
     // to check who send the messages 
-    Socket.on("private message", function ({ content, from, username }) {
+    socket.on("private message", function ({ content, from, username }) {
         let newMessages = {};
         for (let i = 0; i < currentUser.length; i++) {
             const user = currentUser[i];
-            if (user.userID === from) {
+            if (user.userID == from) {
                 newMessages = {
                     fromUser: username,
                     content,
@@ -59,6 +63,7 @@ function Chat() {
                 };
                 const messagesList = [...message, newMessages];
                 setMessage(messagesList);
+
                 if (user !== selectedUser) {
                     user.hasNewMessages = true;
                 }
@@ -70,11 +75,9 @@ function Chat() {
 
         }
 
-
-
-
     });
 
+    //show the messages
     let showMessages = message.map((message, indx) => {
 
         if (
@@ -109,8 +112,7 @@ function Chat() {
 
 
     })
-    // console.log(selectedUser)
-    // console.log(message)
+
     return (
         <div className="chatContainer">
             <div>

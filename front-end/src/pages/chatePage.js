@@ -1,17 +1,28 @@
 import useAuth from "../hooks/useAuth";
-import Socket from "../hooks/socket";
+import socket from "../hooks/socket";
 import { useState, useEffect } from "react";
 import Chat from "../components/Chat";
 import { SelectedUserProvider } from '../context/selectedUserProvider';
 import { ContactsProvider } from "../context/contactsProvider";
 import Contacts from "../components/Contacts";
 import { MyContactsProvider } from "../context/myContacts";
+import useSelecteUser from '../hooks/useSelectedUser';
+import toast, { Toaster } from "react-hot-toast";
 
 const ChatPage = () => {
+    const [username, setUsername] = useState("");
+    const [connected, setConnected] = useState(false);
     const { auth } = useAuth()
+
+
+
+    const accsesToken = auth.accessToken
+    if (!accsesToken) return;
     let accessToken = auth.accessToken
-    Socket.auth = { accessToken };
-    Socket.connect();
+    socket.auth = { accessToken };
+    // const sessionID = localStorage.getItem("sessionID");
+
+    socket.connect();
 
 
     return (
@@ -23,9 +34,6 @@ const ChatPage = () => {
                         <Contacts />
                         <Chat />
                     </MyContactsProvider>
-                    {/* <Routes>
-                        <Route path="/:user" element={<Chat />} />
-                    </Routes> */}
 
                 </SelectedUserProvider>
 

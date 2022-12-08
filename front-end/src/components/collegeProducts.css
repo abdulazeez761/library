@@ -3,15 +3,8 @@
     --curve: 40;
 }
 
-* {
-    box-sizing: border-box;
-    z-index: 1;
-}
 
-body {
-    font-family: 'Noto Sans JP', sans-serif;
-    background-color: #fef8f8;
-}
+
 
 .cards {
     display: grid;
@@ -21,6 +14,7 @@ body {
     padding: 0;
     list-style-type: none;
     position: relative;
+    transition: .2s ease-in-out;
 }
 
 .card {
@@ -30,11 +24,14 @@ body {
     border-radius: calc(var(--curve) * 1px);
     overflow: hidden;
     text-decoration: none;
+    transition: .2s ease-in-out;
 }
 
 .card__image {
     width: 100%;
     height: 45vh;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    transition: .2s ease-in-out;
 }
 
 .card__overlay {
@@ -48,6 +45,7 @@ body {
     transform: translateY(100%);
     transition: .2s ease-in-out;
     /* */
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
 .card:hover .card__overlay {
@@ -74,6 +72,7 @@ body {
     bottom: 100%;
     right: 0;
     z-index: 1;
+
 }
 
 
@@ -87,6 +86,7 @@ body {
     width: 50px;
     height: 50px;
     border-radius: 50%;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -3px 3px, rgba(0, 0, 0, 0.12) 0px 2px 2px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -1px 3px;
 }
 
 .card__title {
@@ -112,7 +112,7 @@ body {
 
 }
 
-.card__description {
+/* .card__description {
     padding: 0 2em 2em;
     margin: 0;
     color: #D7BDCA;
@@ -121,7 +121,7 @@ body {
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
     overflow: hidden;
-}
+} */
 
 .book-info {
     display: flex;
@@ -269,25 +269,41 @@ body {
     margin-bottom: -10px;
 }
 
-.book__status .notEmpty {
+.book__status .true-status {
     border: 1px solid rgb(141, 141, 141);
     /* color: rgb(207, 183, 116); */
-    padding-right: 1em;
-    padding-left: 1em;
+    padding-right: 0.4em;
+    padding-left: 0.4em;
     border-radius: 8px;
+    color: #534a3e;
+}
+
+
+
+.book__status .false-status {
+    border: 1px solid rgb(141, 141, 141);
+    /* color: rgb(207, 183, 116); */
+    padding-right: 0.4em;
+    padding-left: 0.4em;
+    border-radius: 8px;
+    background-color: #c5c5c5;
+    color: #9e9e9e;
 }
 
 .mySwiper {
     width: 100%;
     height: 100%;
+
 }
 
 .mySwiper .card-siper-container .card {
     border-radius: 24px;
+
 }
 
 .swiper-slide {
     padding-bottom: 3em;
+
 
 }
 

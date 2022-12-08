@@ -1,37 +1,35 @@
-* {
-    padding: 0%;
-    margin: 0%;
-    box-sizing: border-box;
-    text-transform: capitalize;
-    font-family: "Roboto", sans-serif;
-    z-index: 1;
-}
-.about-section-box{
+.about-section-box {
     margin: 5em;
-    
+
 }
+
 .inner-column h1 span {
     color: #d0a772;
 }
-.row{
+
+.row {
     display: none;
 }
- img {
+
+img {
     vertical-align: middle;
     border-style: none;
-} 
-  .img-fluid {
+}
+
+.img-fluid {
     box-shadow: -10px -10px 0px #d0a772;
 }
+
 .img-fluid {
     max-width: 100%;
     height: auto;
 }
-.col-lg-6 >.img-fluid {
+
+.col-lg-6>.img-fluid {
     width: 100%;
     transition-duration: .3s;
     max-width: 100%;
     display: block;
     overflow: hidden;
     cursor: pointer;
-}  
+}

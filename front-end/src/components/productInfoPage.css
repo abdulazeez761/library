@@ -1,0 +1,70 @@
+.product-card-container,
+.product-image-container,
+.status-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.product-image-container img {
+    height: 50vh;
+    margin-right: 3em;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
+}
+
+
+
+.subject-and-user-info {
+    position: relative;
+}
+
+.subject-and-user-info>* {
+    margin-top: 0.7em;
+    text-align: left;
+}
+
+.userName-product-page {
+    position: absolute;
+    left: 20%;
+    bottom: 60%;
+    width: max-content;
+}
+
+.product-image-container .card__thumb {
+    display: flex;
+    flex-shrink: 0;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    align-items: flex-start;
+
+}
+
+.status-container p {
+    border: 1px solid rgb(141, 141, 141);
+    width: max-content;
+    padding-right: 1em;
+    padding-left: 1em;
+    margin-right: 4px;
+    margin-left: 4px;
+    margin-top: 5px;
+    border-radius: 25px;
+}
+
+.products-page-buttons {
+    position: relative;
+    top: 60%;
+}
+
+.contact-button {
+    border: none;
+    border-radius: 25px;
+    background: #d0a773;
+    transition: all 0.3s ease-in-out 0s;
+}
+
+.contact-button:hover {
+    background-color: rgb(0, 0, 0);
+    color: white;
+}

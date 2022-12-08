@@ -24,3 +24,17 @@ exports.allContacts = () => {
         reject(Error('somthing went wrong'))
     })
 }
+//adding user info when he join the chat  session storage 
+
+exports.joindUser = (userName) => {
+    return new Promise((resolve, reject) => {
+        resolve(dataBaseConnection.execute(`SELECT * FROM joinedUser WHERE username="${userName}"`))
+    })
+}
+exports.addNewOne = (username, userID, sessionID) => {
+    return new Promise((resolve, reject) => {
+        resolve(dataBaseConnection.execute(`INSERT INTO joinedUser (sessionID , userID, username) VALUES(? , ? , ?)`,
+            [sessionID, userID, username]))
+        reject(Error('somthing went wrong'))
+    })
+}

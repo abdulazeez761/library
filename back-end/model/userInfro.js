@@ -5,10 +5,10 @@ exports.isUserExist = (user) => {
         reject(Error('somthing went wrong'))
     })
 }
-exports.addNewUser = (user, hashedPassowrd) => {
+exports.addNewUser = (user, hashedPassowrd, instaLink, facebookLink, twitterLink) => {
     return new Promise((resolve, reject) => {
-        resolve(dataDaseConnection.execute(`INSERT INTO userinfo (user_name , pwd ) values(?, ?)`,
-            [user, hashedPassowrd]))
+        resolve(dataDaseConnection.execute(`INSERT INTO userinfo (user_name , pwd , instaLink , facebookLink , twitterLink ) values(?, ? ,? , ? , ?)`,
+            [user, hashedPassowrd, instaLink, facebookLink, twitterLink]))
         reject(Error('something went wrong '))
     })
 }

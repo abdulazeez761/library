@@ -3,8 +3,7 @@ import React from 'react';
 import useAxiosPrivate from "../hooks/useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect, useRef } from 'react'
-import { Typeahead } from 'react-bootstrap-typeahead';
-import { Select, Button } from "antd"; // "3.26.7" worked
+
 import { Link } from 'react-router-dom'
 
 import axios from 'axios';
@@ -23,12 +22,14 @@ const AddBooks = React.memo(props => {
     const [collegeOption, setCollegeOption] = useState('')
     const [emailOption, setEmailOption] = useState('')
     const [phoneNumberOption, setPhoneNumbeOption] = useState('')
-
+    const [file, setFile] = useState();
+    const [fileName, setFileName] = useState("");
     const [sale, setSale] = useState(false)
     const [exchange, setExchange] = useState(false)
     const [donation, setDonation] = useState(false)
+    const [slide, setSlide] = useState(false)
 
-    const [major, setMajor] = useState([]);
+    const [major, setMajor] = useState();
     const [majorData, setMajorData] = useState([{}])
     const [subjectData, setSubjectData] = useState([])
     const [choosedSubject, setChoosedSubject] = useState()
@@ -36,10 +37,17 @@ const AddBooks = React.memo(props => {
     const [success, setSuccess] = useState(false);
 
     // disabled controller 
-
     const [saleDisabled, setsaleDisabled] = useState(false)
-
     const [donationDisabled, setDonationDisabled] = useState(false)
+    const [exchangeDisabled, setExchangeDisabled] = useState(false)
+    const [slideDisabeld, setSlideDisabled] = useState(false)
+
+    const pdfRegex = /^[^+]+\.pdf$/im
+    // console.log(pdfRegex.test(slideField.selectedFile.name))
+    // console.log(slideField)
+    // if(slide && slideField is empty ) return err and disable  the button
+
+
 
     useEffect(() => {
         let isMounted = true;
@@ -167,31 +175,109 @@ const AddBooks = React.memo(props => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // for (let i = 0; i < slideField.length; i++) {
+        //     data.append('file', slideField[i])
+        // }
+        // for (const file of this.state.files) {
+        //     formData.append('file', file)
+        // }
+        const controller = new AbortController(); //cancle req when the comounent unmounte
+        if (slide == true && !file) return
+        if (universityOption.length == 0 || collegeOption.length == 0 || choosedSubject.length == 0 || major.length == 0) return
         try {
 
-            await axios.post('http://localhost:4000/add-book',
-                {
+            if (slide == true) {
+                // send the file first then send the rest of the data 
+                const formData = new FormData();
+                formData.append("file", file);
+                formData.append("fileName", fileName);
 
-                    universityOption,
-                    collegeOption,
-                    emailOption,
-                    phoneNumberOption,
-                    sale,
-                    exchange,
-                    donation,
-                    choosedSubject,
-                    major
+                await axios.post(
+                    "http://localhost:4000/uploadFile",
+                    formData, {
+                    signal: controller.signal //allows to cancle the req if it needs to 
+                }
+                ).then(async (res) => {
 
-                },
-                {
+                    if (res.status == 200)
+                        await axios.post('http://localhost:4000/add-book',
+                            {
+                                universityOption,
+                                collegeOption,
+                                emailOption,
+                                phoneNumberOption,
+                                sale,
+                                exchange,
+                                donation,
+                                slide,
+                                choosedSubject,
+                                major
 
+                            },
+                            {
 
-                    headers: { 'Content-Type': 'application/json' },
-                    withCredentials: true
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                withCredentials: true
+                            }).then((res) => {
+                                console.log(res)
+                                if (res.status == 204) {
+                                    return setErrMessage('pleas select the missing option')
+                                }
+                                setUniversityOption('');
+                                setCollegeOption('');
+                                setEmailOption('');
+                                setPhoneNumbeOption('');
+                                setChoosedSubject('');
+                                setMajor('')
+                                setSale(false);
+                                setDonation(false);
+                                setExchange(false);
+                                setDonationDisabled(false);
+                                setsaleDisabled(false);
+                                setSlideDisabled(false)
+                                setExchangeDisabled(false)
+                                setSuccess(true);
+                                setFile();
+                                setFileName("");
+                                setSlide(false)
+
+                            })
 
                 })
-                .then((res) => {
-                    if (res.status == 200) {
+
+
+            } else {
+                // only send the data
+
+                await axios.post('http://localhost:4000/add-book',
+                    {
+                        universityOption,
+                        collegeOption,
+                        emailOption,
+                        phoneNumberOption,
+                        sale,
+                        exchange,
+                        donation,
+                        slide,
+                        choosedSubject,
+                        major
+
+                    },
+                    {
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        withCredentials: true
+                    })
+                    .then((res) => {
+                        console.log(res)
+                        if (res.status == 204) {
+                            return setErrMessage('pleas select the missing option')
+                        }
+
                         setUniversityOption('');
                         setCollegeOption('');
                         setEmailOption('');
@@ -203,14 +289,18 @@ const AddBooks = React.memo(props => {
                         setExchange(false);
                         setDonationDisabled(false);
                         setsaleDisabled(false);
+                        setSlideDisabled(false)
+                        setExchangeDisabled(false)
                         setSuccess(true);
-                    }
-                    if (res.status == 204) {
-                        setErrMessage('pleas select the missing option')
-                    }
-                    console.log(res)
+                        setFile();
+                        setFileName("");
+                        setSlide(false)
 
-                })
+
+
+                    })
+            }
+
 
         } catch (err) {
             console.log(err)
@@ -233,8 +323,14 @@ const AddBooks = React.memo(props => {
         e.preventDefault();
         setSuccess(false)
     }
+
+
+    const saveFile = (e) => {
+        setFile(e.target.files[0]);
+        setFileName(e.target.files[0].name);
+    };
     return (
-        <section className='box'>
+        <section className='box add_book-container'>
             {
                 success ? (
                     <div>
@@ -244,17 +340,14 @@ const AddBooks = React.memo(props => {
                             <p>your profile</p>
                         </Link>
                         <button onClick={onClickAddOntherBook}>add another book</button>
-
-
-
                     </div>
                 ) : (
 
-                    <div className='box-wraber'>
+                    <div className='box-wraber add-book-form-containter'>
                         {isPending && <p>loading ....</p>}
                         <p ref={errRef} className={errMessage ? "errmsg" : "offscreen"} aria-live="assertive">{errMessage}</p>
 
-                        <form onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit} className='add-book-form'>
                             {
                                 university?.length
                                     ? (
@@ -386,7 +479,9 @@ const AddBooks = React.memo(props => {
                                         <input type="checkbox" id="checkboxOne" value="sale"
                                             onChange={(e) => {
                                                 setSale(!sale)
+                                                setSlideDisabled(!slideDisabeld)
                                                 setDonationDisabled(!donationDisabled)
+
                                             }}
                                             disabled={saleDisabled}
 
@@ -397,8 +492,10 @@ const AddBooks = React.memo(props => {
                                         <input type="checkbox" id="checkboxTwo" value="exchange"
                                             onChange={(e) => {
                                                 setExchange(!exchange)
+                                                setSlideDisabled(!slideDisabeld)
+                                                setDonationDisabled(!donationDisabled)
                                             }}
-
+                                            disabled={exchangeDisabled}
                                         />
                                         <label htmlFor="checkboxTwo">exchange</label>
                                     </li>
@@ -407,6 +504,8 @@ const AddBooks = React.memo(props => {
                                             onChange={(e) => {
                                                 setDonation(!donation)
                                                 setsaleDisabled(!saleDisabled)
+                                                setExchangeDisabled(!exchangeDisabled)
+                                                setSlideDisabled(!slideDisabeld)
 
                                             }}
                                             disabled={donationDisabled}
@@ -414,11 +513,39 @@ const AddBooks = React.memo(props => {
                                         />
                                         <label htmlFor="checkboxThree">donation</label>
                                     </li>
+
+
+                                    <li>
+                                        <input type="checkbox" id="checkboxFour" value="slide"
+                                            onChange={(e) => {
+                                                setSlide(!slide)
+                                                setDonationDisabled(!donationDisabled)
+                                                setsaleDisabled(!saleDisabled)
+                                                setExchangeDisabled(!exchangeDisabled)
+                                            }}
+                                            disabled={slideDisabeld}
+                                        />
+                                        <label htmlFor="checkboxFour">slide</label>
+                                    </li>
                                 </ul>
+                                <div className='optional-field-contaoner' style={{ display: slide ? 'inline' : 'none', }}>
+                                    <input
+                                        type="file"
+                                        id="slide file"
+                                        // name="file"
+                                        autoComplete="off"
+                                        // value={slideField}
+                                        accept="application/pdf"
+                                        // onChange={(e) => setSlideField({ selectedFile: e.target.files[0], loaded: 0 })}
+                                        onChange={saveFile}
+
+                                    />
+                                    <label htmlFor="book's name"></label>
+                                </div>
                             </div>
                             <button>submit</button>
                         </form>
-                    </div>
+                    </div >
                 )
             }
 

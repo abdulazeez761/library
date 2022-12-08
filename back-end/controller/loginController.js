@@ -8,11 +8,11 @@ exports.LoginFunction = async (req, res, nex) => {
     if (rows.length <= 0) return res.sendStatus(401);
     let userId = rows[0]['id']
     let [roles, rolesMeta] = await userData.getUserRoles(userId)
+
     //filtering the data
     roles.forEach(element => {
         let stringRolesArry = [element.Admin, element.User, element.Editor]
         let numberRoles = stringRolesArry.map(function (x) {
-
             if (typeof x == 'string') {
                 return parseInt(x, 10);
             }
@@ -45,7 +45,7 @@ exports.LoginFunction = async (req, res, nex) => {
             const refreshToken = jwt.sign(
                 { "username": rows[0]['user_name'] },
                 process.env.REFRESH_TOKEN_SECRET,
-                { expiresIn: '8d' }
+                { expiresIn: '90d' }
             );
             const currentUser = { ...rows, refreshToken }
             let token = currentUser['refreshToken']
@@ -55,7 +55,7 @@ exports.LoginFunction = async (req, res, nex) => {
                 res.status(200)
 
             })
-            res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 })
+            res.cookie('jwt', refreshToken, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 2160 * 60 * 60 * 1000 })
             res.json({
                 accessToken,
                 roles
@@ -67,7 +67,7 @@ exports.LoginFunction = async (req, res, nex) => {
 
     } catch (ERROR) {
         res.sendStatus(401)
-        console.log(ERROR)
+        console.log(ERROR + 'test login page')
     }
 
 

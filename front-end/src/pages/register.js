@@ -6,6 +6,11 @@ import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icon
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const instagramUrlRegex = /(?:(?:http|https):\/\/)?(?:www\.)?(?:instagram\.com|instagr\.am)\/([A-Za-z0-9-_\.]+)/im
+const twitterRegex = /(https:\/\/twitter.com\/(?![a-zA-Z0-9_]+\/)([a-zA-Z0-9_]+))/im
+const facebookRegex = /(?:https?:\/\/)?(?:www\.)?(mbasic.facebook|m\.facebook|facebook|fb)\.(com|me)\/(?:(?:\w\.)*#!\/)?(?:pages\/)?(?:[\w\-\.]*\/)*([\w\-\.]*)/im
+
+
 function Register() {
     const userRef = useRef();
     const errRef = useRef();
@@ -24,6 +29,20 @@ function Register() {
 
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
+
+
+    const [instaLink, setInstaLink] = useState('');
+    const [validInstaLink, setValidInstaLink] = useState(false);
+    const [instaLinkFoucus, setInstaLinkFoucus] = useState(false);
+
+
+    const [facebookLink, setFacebookLink] = useState('');
+    const [validFacebookLink, setValidFacebookLink] = useState(false);
+    const [facebookLinkFocus, setFacebookLinkFocus] = useState(false);
+
+    const [twitterLink, setTwitterLink] = useState('');
+    const [validtwitterLink, setValidTwitterLink] = useState(false);
+    const [twitterLinkFocus, setTwitterLinkFocus] = useState(false);
     useEffect(() => {
         userRef.current.focus();
     }, [])
@@ -38,21 +57,52 @@ function Register() {
     }, [pwd, matchPwd])
 
     useEffect(() => {
+        setValidInstaLink(instagramUrlRegex.test(instaLink));
+
+    }, [instaLink])
+
+    useEffect(() => {
+        setValidFacebookLink(facebookRegex.test(facebookLink))
+    }, [facebookLink])
+
+    useEffect(() => {
+        setValidTwitterLink(twitterRegex.test(twitterLink))
+    }, [twitterLink])
+
+    useEffect(() => {
         setErrMsg('');
     }, [user, pwd, matchPwd])
 
+    //if the user is tring to use  invalid url
+    useEffect(() => {
+        if (instagramUrlRegex.test(instaLink)) {
+            const matches = instaLink.match(instagramUrlRegex);
+            setInstaLink(matches[0])
+        } else if (facebookRegex.test(facebookLink)) {
+            const matches = facebookLink.match(facebookRegex);
+            console.log(matches[0]);
+            setFacebookLink(matches[0])
+        } else if (twitterRegex.test(twitterLink)) {
+            const matches = twitterLink.match(twitterRegex);
+            console.log(matches[0]);
+            setTwitterLink(matches[0])
+        }
+    }, [facebookLink, instaLink, twitterLink])
     const handleSubmit = async (e) => {
         e.preventDefault();
         // if button enabled with JS hack
         const v1 = USER_REGEX.test(user);
         const v2 = PWD_REGEX.test(pwd);
-        if (!v1 || !v2) {
+        const v3 = instagramUrlRegex.test(instaLink)
+        const v4 = facebookRegex.test(facebookLink)
+        const v5 = twitterRegex.test(twitterLink)
+        if (!v1 || !v2 || !v3 || !v4 || !v5) {
             setErrMsg("Invalid Entry");
             return;
         }
         try {
             await axios.post('http://localhost:4000/register',
-                JSON.stringify({ user, pwd }),
+                JSON.stringify({ user, pwd, instaLink, facebookLink, twitterLink }),
                 {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
@@ -66,6 +116,7 @@ function Register() {
                 setUser('');
                 setPwd('');
                 setMatchPwd('');
+                setInstaLink('')
             })
 
         } catch (err) {
@@ -91,7 +142,7 @@ function Register() {
                     </Link>
                 </section>
             ) : (
-                <div className='box-wrapper'>
+                <div className='box-wrapper register-form-parent'>
                     <section className='box'>
                         <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                         <h1>Register</h1>
@@ -172,7 +223,82 @@ function Register() {
                                     Must match the first password input field.
                                 </p>
                             </div>
-                            <button disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up</button>
+                            <p className='instructions' style={{ backgroundColor: 'white', color: 'black', fontSize: "1em", marginBottom: '2rem' }}>social media links:</p>
+                            <div>
+
+                                <input
+                                    type="url"
+                                    id="insta-lnk"
+                                    autoComplete="off"
+                                    onChange={(e) => setInstaLink(e.target.value)}
+                                    value={instaLink}
+                                    required
+
+                                    aria-describedby="uidnote"
+                                    onFocus={() => setInstaLinkFoucus(true)}
+                                    onBlur={() => setInstaLinkFoucus(false)}
+                                />
+                                <label htmlFor="insta-lnk">
+                                    your instagram link:
+                                    <FontAwesomeIcon icon={faCheck} className={validInstaLink ? "valid" : "hide"} />
+                                    <FontAwesomeIcon icon={faTimes} className={validInstaLink || !instaLink ? "hide" : "invalid"} />
+                                </label>
+                                <p id="uidnote" className={instaLinkFoucus && !validInstaLink ? "instructions" : "offscreen"}>
+                                    <FontAwesomeIcon icon={faInfoCircle} />
+                                    a link to your profile page such as <span style={{ fontSize: '10px', }}>https://www.instagram.com/abdul_azeez0_0/</span>
+                                </p>
+                            </div>
+
+                            <div>
+
+                                <input
+                                    type="url"
+                                    id="facebook-lnk"
+                                    autoComplete="off"
+                                    onChange={(e) => setFacebookLink(e.target.value)}
+                                    value={facebookLink}
+                                    required
+
+                                    aria-describedby="uidnote"
+                                    onFocus={() => setFacebookLinkFocus(true)}
+                                    onBlur={() => setFacebookLinkFocus(false)}
+                                />
+                                <label htmlFor="facebook-lnk">
+                                    your facebook link:
+                                    <FontAwesomeIcon icon={faCheck} className={validFacebookLink ? "valid" : "hide"} />
+                                    <FontAwesomeIcon icon={faTimes} className={validFacebookLink || !facebookLink ? "hide" : "invalid"} />
+                                </label>
+                                <p id="uidnote" className={facebookLinkFocus && !validFacebookLink ? "instructions" : "offscreen"}>
+                                    <FontAwesomeIcon icon={faInfoCircle} />
+                                    a link to your profile page such as <span style={{ fontSize: '10px', }}>https://www.facebook.com/abd.alazaz.56027</span>
+                                </p>
+                            </div>
+
+                            <div>
+
+                                <input
+                                    type="url"
+                                    id="twitter-lnk"
+                                    autoComplete="off"
+                                    onChange={(e) => setTwitterLink(e.target.value)}
+                                    value={twitterLink}
+                                    required
+                                    aria-describedby="uidnote"
+                                    onFocus={() => setTwitterLinkFocus(true)}
+                                    onBlur={() => setTwitterLinkFocus(false)}
+                                />
+                                <label htmlFor="twitter-lnk">
+                                    your twitter link:
+                                    <FontAwesomeIcon icon={faCheck} className={validtwitterLink ? "valid" : "hide"} />
+                                    <FontAwesomeIcon icon={faTimes} className={validtwitterLink || !twitterLink ? "hide" : "invalid"} />
+                                </label>
+                                <p id="uidnote" className={twitterLinkFocus && !validtwitterLink ? "instructions" : "offscreen"}>
+                                    <FontAwesomeIcon icon={faInfoCircle} />
+                                    a link to your profile page such as <span style={{ fontSize: '10px', }}>https://twitter.com/Q</span>
+                                </p>
+                            </div>
+
+                            <button disabled={!validName || !validPwd || !validMatch || !validInstaLink || !validFacebookLink || !validtwitterLink ? true : false}>Sign Up</button>
                         </form>
                         <p>
                             Already registered?<br />

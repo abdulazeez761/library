@@ -50,20 +50,18 @@ function Nav() {
                                     Add Books
                                 </li>
                             </NavLink>
-                            <NavLink to='filter' className={({ isActive }) => (isActive ? "activeLink" : "link")}>
+                            <NavLink to='profile' className={({ isActive }) => (isActive ? "activeLink" : "link")}>
                                 <li onClick={() => setIsOpen(!isOpen)}>
-                                    Filter
+                                    profile
                                 </li>
                             </NavLink>
-                            <NavLink to='direct' className={({ isActive }) => (isActive ? "activeLink" : "link")}>
+                            {/* <NavLink to='direct' className={({ isActive }) => (isActive ? "activeLink" : "link")}>
                                 <li onClick={() => setIsOpen(!isOpen)}>
                                     direct
                                 </li>
-                            </NavLink>
+                            </NavLink> */}
                         </div>
-                        <div className="responsive-div" >
-
-
+                        <div className="responsive-div responsive-div-two" >
                         </div>
                         <div className="nav-options-container">
                             <NavLink to='login' className={({ isActive }) => (isActive ? "activeLink " : "link ")}>

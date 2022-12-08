@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useRef, useEffect } from 'react';
-import Socket from '../hooks/socket';
+import socket from '../hooks/socket';
 import useSelecteUser from '../hooks/useSelectedUser';
 import useCurrentUser from '../hooks/useCurrentUser';
 import { Link } from 'react-router-dom';
@@ -18,13 +18,13 @@ export default function Contacts() {
         user.messages = [];
         user.hasNewMessages = false;
     };
-    // console.log(currentUser)
-    useEffect(() => {
 
-        Socket.on("users", (users) => {
+    //storing all of connected users
+    useEffect(() => {
+        socket.on("users", (users) => {
             users.forEach((user) => {
-                user.self = user.userID === Socket.id;
-                console.log(user)
+                user.self = user.userID === socket.id;
+
                 initReactiveProperties(user)
             });
 
@@ -39,10 +39,18 @@ export default function Contacts() {
             setCurrentUser(users);
         });
 
+        // socket.on("session", ({ sessionID, userID }) => {
+        //     // attach the session ID to the next reconnection attempts
+        //     localStorage.setItem("sessionID", sessionID);
+        //     socket.auth.sessionID = sessionID;
+        //     // store it in the localStorage
+        //     socket.auth.userID = userID;
+        // });
+
     }, [setCurrentUser])
     // if aonther user connected it'sgonna add that user to the users list
     useEffect(() => {
-        Socket.on("user connected", (user) => {
+        socket.on("user connected", (user) => {
             // console.log(user)
             initReactiveProperties(user);
             setCurrentUser(online => {
@@ -68,7 +76,7 @@ export default function Contacts() {
             })
 
     }, [])
-    // console.log(selectedUser)
+    // console.log(currentUser)
 
     return (
         <div>
@@ -101,10 +109,12 @@ export default function Contacts() {
                 <div className='user-containter'>
                     {
                         myContact.map((contact, index) => {
+
                             return (
                                 <div className='nothing' key={index}>
                                     <p onClick={() => {
                                         setSelectedUser(contact.toUserName)
+
                                     }} > {contact.sender == username ? contact.toUserName : ''} </p>
                                     <p onClick={() => {
                                         setSelectedUser(contact.sender)
