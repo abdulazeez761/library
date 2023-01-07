@@ -14,6 +14,7 @@ import PersistLogin from './components/PersistLogin'
 import RequireAuth from './components/RequireAuth';
 import ProductsGenrePage from './pages/ProductsGenrePage';
 import ProductInfoPage from './components/productInfoPage';
+import NoProfile from './components/npProfile';
 const ROLES = {
   "User": 2001,
   "Editor": 1984,
@@ -37,11 +38,13 @@ function App() {
             <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
               <Route path='add-books' element={<AddBooks />} />
               {/* <SelectedUserProvider> */}
-              <Route path='profile' element={<ProfilePage />} />
+              <Route path='/:userName' element={<ProfilePage />} />
               <Route path='direct/*' element={<ChatPage />} />
               {/* </SelectedUserProvider> */}
             </Route>
           </Route>
+          {/* <Route path='profile/:userName' element={<NotLogedInUserProfile />} /> */}
+          <Route path='noprofile' element={<NoProfile />} />
           <Route path='college/:name/:id' element={<CollagePage />} />
           <Route path='college/:name/:id/:genre' element={<ProductsGenrePage />} />
           <Route path='college/:name/:id/:genre/:bookID' element={<ProductInfoPage />} />

@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
 import './nav.css'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate, Navigate, useLocation } from 'react-router-dom'
 import logoImage from '../assets/imgs/logo.png'
 import UseLogOut from "../hooks/useLogOut";
 import { BsSearch } from "react-icons/bs";
-
 function Nav() {
     const [isOpen, setIsOpen] = useState(false);
     const navigate = useNavigate()
     const logOut = UseLogOut();
-
+    let userName = localStorage.getItem('username')
     const isLoggedIn = localStorage.getItem('loggedIn')
+    const location = useLocation();
     const signOut = async () => {
         await logOut();
         navigate('/')
@@ -50,7 +50,7 @@ function Nav() {
                                     Add Books
                                 </li>
                             </NavLink>
-                            <NavLink to='profile' className={({ isActive }) => (isActive ? "activeLink" : "link")}>
+                            <NavLink to={userName ? userName : 'noprofile'} className={({ isActive }) => (isActive ? "activeLink" : "link")}>
                                 <li onClick={() => setIsOpen(!isOpen)}>
                                     profile
                                 </li>
@@ -90,7 +90,7 @@ function Nav() {
                 </ul>
 
             </nav>
-        </div>
+        </div >
 
     )
 }

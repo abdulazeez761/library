@@ -33,3 +33,14 @@ img {
     overflow: hidden;
     cursor: pointer;
 }
+
+.inner-column h5 {
+    margin-bottom: 1.5em;
+    color: darkgrey;
+    font-weight: 200;
+}
+
+.inner-column p {
+    text-align: start;
+    padding-left: 4em;
+}

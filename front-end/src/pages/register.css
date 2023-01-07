@@ -7,15 +7,15 @@
 }
 
 .register-form-parent {
-  margin-top: 4em;
-  margin-bottom: 20em;
+  margin-bottom: 11em;
+  height: 100vh;
+
 }
 
 section {
-  width: 100%;
+  display: flex;
   max-width: 420px;
   min-height: 400px;
-  display: flex;
   flex-direction: column;
   justify-content: flex-start;
 

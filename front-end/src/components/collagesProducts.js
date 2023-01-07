@@ -21,6 +21,7 @@ function getWindowDimensions() {
         height
     };
 }
+
 const Books = () => {
 
     const { name, id } = useParams();
@@ -72,7 +73,7 @@ const Books = () => {
         <>
 
             <div className="cards">
-                <div style={{ position: "absolute", margin: '-3em', display: 'flex', width: '100%', justifyContent: 'space-between', }}>
+                <div style={{ position: "absolute", margin: '-3em', marginLeft: '1em', display: 'flex', width: '98%', justifyContent: 'space-between', }}>
                     <h4>sales  section</h4>
                     <Link to={`${location.pathname}/sale`} replace className="lineArrowRight">
                         <p style={{ fontSize: '1.5em' }}  >
@@ -124,9 +125,9 @@ const Books = () => {
                                     return (
                                         <div className="swiper-container" key={index}>
                                             <SwiperSlide className="card-siper-container">
-                                                <div >
+                                                <div>
                                                     <div className="card">
-                                                        <img src={data.image} className="card__image" alt="" />
+                                                        <img src={require(`../assets/subject-images/${data?.image}`)} className="card__image" alt="" />
                                                         <div className="card__overlay">
 
                                                             <div className="card__header">
@@ -142,17 +143,23 @@ const Books = () => {
                                                                 </div>
                                                                 <div className="book-info-with-user">
                                                                     <svg className="card__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>
-                                                                    <img className="card__thumb" src="https://i.imgur.com/7D7I6dI.png" alt="" />
+                                                                    <Link to={`/${data.userName}`} className="lineArrowRight">
+                                                                        <img className="card__thumb" src="https://i.imgur.com/7D7I6dI.png" alt="" />
+                                                                    </Link>
                                                                     <div className="card__header-text">
                                                                         <h3 className="card__title">{data.subject}</h3>
-                                                                        <span className="user-name-par">{data.userName} </span>
+                                                                        <Link to={`/${data.userName}`} className="lineArrowRight">
+                                                                            <span className="user-name-par">{data.userName} </span>
+                                                                        </Link>
                                                                     </div>
 
                                                                 </div>
                                                                 <div className="book__status">
-                                                                    <p className={data.sale == 1 ? 'true-status' : 'false-status'}>{data.sale == 1 ? 'sale' : 'sale'}</p>
-                                                                    <p className={data.exchange == 1 ? 'true-status' : 'false-status'}>{data.exchange == 1 ? 'exchange' : 'exchange'}</p>
-                                                                    <p className={data.donation == 1 ? 'true-status' : 'false-status'} > {data.donation == 1 ? 'donation' : 'donation'}</p>
+                                                                    {/*   {/* backgroundColor: '#FFA000' */}
+                                                                    <p className={data.sale == 1 ? 'true-status' : 'false-status'} style={{ backgroundColor: '#66BB6A' }}>{data.sale == 1 ? 'sale' : 'sale'}</p>
+                                                                    <p className={data.exchange == 1 ? 'true-status' : 'false-status'} style={{ backgroundColor: '#F2C665' }}>{data.exchange == 1 ? 'exchange' : 'exchange'}</p>
+                                                                    {/* <p className={data.sale == 1 ? 'true-status' : 'false-status'} style={{ color: '#95FF63' }}>{data.sale == 1 ? 'sale' : 'sale'}</p>
+                                                                    <p className={data.exchange == 1 ? 'true-status' : 'false-status'} style={{ color: '#F2C665' }}>{data.exchange == 1 ? 'exchange' : 'exchange'}</p> */}
                                                                     <p className="card__status">10:00AM</p>
                                                                 </div>
                                                             </div>
@@ -160,7 +167,8 @@ const Books = () => {
                                                                 <div className="more-details-button">
                                                                     <Link to={`${location.pathname}/sale/${data.book_ID}`} replace className="lineArrowRight">
                                                                         <button variant="outline-secondary" className="details-book-button"> more details <MdReadMore className="more-details-icon" /></button>
-                                                                    </Link>                                                                </div>
+                                                                    </Link>
+                                                                </div>
                                                                 <div className="text-auther-button">
                                                                     <div className="text-auther-icon">
                                                                         <span className="text-auther">message</span>
@@ -179,12 +187,6 @@ const Books = () => {
 
 
                             }
-
-
-
-
-
-
                         })
 
                     }
@@ -192,7 +194,7 @@ const Books = () => {
                 </Swiper>
             </div>
             <div className="cards">
-                <div style={{ position: "absolute", margin: '-3em', display: 'flex', width: '100%', justifyContent: 'space-between', }}>
+                <div style={{ position: "absolute", margin: '-3em', marginLeft: '1em', display: 'flex', width: '98%', justifyContent: 'space-between', }}>
                     <h4>donation section</h4>
                     <Link to={`${location.pathname}/donation`} replace className="lineArrowRight">
                         <p style={{ fontSize: '1.5em' }}  >
@@ -232,7 +234,7 @@ const Books = () => {
                                             <SwiperSlide className="card-siper-container">
                                                 <div >
                                                     <div className="card">
-                                                        <img src={data.image} className="card__image" alt="" />
+                                                        <img src={require(`../assets/subject-images/${data?.image}`)} className="card__image" alt="" />
                                                         <div className="card__overlay">
 
                                                             <div className="card__header">
@@ -248,17 +250,20 @@ const Books = () => {
                                                                 </div>
                                                                 <div className="book-info-with-user">
                                                                     <svg className="card__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>
-                                                                    <img className="card__thumb" src="https://i.imgur.com/7D7I6dI.png" alt="" />
+                                                                    <Link to={`/${data.userName}`} className="lineArrowRight">
+                                                                        <img className="card__thumb" src="https://i.imgur.com/7D7I6dI.png" alt="" />
+                                                                    </Link>
                                                                     <div className="card__header-text">
                                                                         <h3 className="card__title">{data.subject}</h3>
-                                                                        <span className="user-name-par">{data.userName} </span>
+                                                                        <Link to={`/${data.userName}`} className="lineArrowRight">
+                                                                            <span className="user-name-par">{data.userName} </span>
+                                                                        </Link>
                                                                     </div>
 
                                                                 </div>
                                                                 <div className="book__status">
-                                                                    <p className={data.sale == 1 ? 'true-status' : 'false-status'}>{data.sale == 1 ? 'sale' : 'sale'}</p>
-                                                                    <p className={data.exchange == 1 ? 'true-status' : 'false-status'}>{data.exchange == 1 ? 'exchange' : 'exchange'}</p>
-                                                                    <p className={data.donation == 1 ? 'true-status' : 'false-status'} > {data.donation == 1 ? 'donation' : 'donation'}</p>
+
+                                                                    <p className={data.donation == 1 ? 'true-status' : 'false-status'} style={{ backgroundColor: '#2196F3' }} > {data.donation == 1 ? 'donation' : 'donation'}</p>
 
                                                                     <p className="card__status">10:00AM</p>
                                                                 </div>
@@ -302,7 +307,7 @@ const Books = () => {
 
 
             <div className="cards">
-                <div style={{ position: "absolute", margin: '-3em', display: 'flex', width: '100%', justifyContent: 'space-between', }}>
+                <div style={{ position: "absolute", margin: '-3em', marginLeft: '1em', display: 'flex', width: '98%', justifyContent: 'space-between', }}>
                     <h4>exchange section</h4>
                     <Link to={`${location.pathname}/exchange`} replace className="lineArrowRight">
                         <p style={{ fontSize: '1.5em' }}  >
@@ -341,7 +346,7 @@ const Books = () => {
                                             <SwiperSlide className="card-siper-container">
                                                 <div>
                                                     <div className="card">
-                                                        <img src={data.image} className="card__image" alt="" />
+                                                        <img src={require(`../assets/subject-images/${data?.image}`)} className="card__image" alt="" />
                                                         <div className="card__overlay">
 
                                                             <div className="card__header">
@@ -357,17 +362,20 @@ const Books = () => {
                                                                 </div>
                                                                 <div className="book-info-with-user">
                                                                     <svg className="card__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>
-                                                                    <img className="card__thumb" src="https://i.imgur.com/7D7I6dI.png" alt="" />
+                                                                    <Link to={`/${data.userName}`} className="lineArrowRight">
+                                                                        <img className="card__thumb" src="https://i.imgur.com/7D7I6dI.png" alt="" />
+                                                                    </Link>
                                                                     <div className="card__header-text">
                                                                         <h3 className="card__title">{data.subject}</h3>
-                                                                        <span className="user-name-par">{data.userName} </span>
+                                                                        <Link to={`/${data.userName}`} className="lineArrowRight">
+                                                                            <span className="user-name-par">{data.userName} </span>
+                                                                        </Link>
                                                                     </div>
 
                                                                 </div>
                                                                 <div className="book__status">
-                                                                    <p className={data.sale == 1 ? 'true-status' : 'false-status'}>{data.sale == 1 ? 'sale' : 'sale'}</p>
-                                                                    <p className={data.exchange == 1 ? 'true-status' : 'false-status'}>{data.exchange == 1 ? 'exchange' : 'exchange'}</p>
-                                                                    <p className={data.donation == 1 ? 'true-status' : 'false-status'} > {data.donation == 1 ? 'donation' : 'donation'}</p>
+                                                                    <p className={data.sale == 1 ? 'true-status' : 'false-status'} style={{ backgroundColor: '#66BB6A' }}>{data.sale == 1 ? 'sale' : 'sale'}</p>
+                                                                    <p className={data.exchange == 1 ? 'true-status' : 'false-status'} style={{ backgroundColor: '#F2C665' }}>{data.exchange == 1 ? 'exchange' : 'exchange'}</p>
 
                                                                     <p className="card__status">10:00AM</p>
                                                                 </div>
@@ -414,9 +422,9 @@ const Books = () => {
 
             {/* slide */}
             <div className="cards">
-                <div style={{ position: "absolute", margin: '-3em', display: 'flex', width: '100%', justifyContent: 'space-between', }}>
+                <div style={{ position: "absolute", margin: '-3em', marginLeft: '1em', display: 'flex', width: '98%', justifyContent: 'space-between', }}>
                     <h4>slide section</h4>
-                    <Link to={`${location.pathname}/exchange`} replace className="lineArrowRight">
+                    <Link to={`${location.pathname}/slide`} replace className="lineArrowRight">
                         <p style={{ fontSize: '1.5em' }}  >
                             <HiOutlineArrowRight />
                         </p>
@@ -453,7 +461,7 @@ const Books = () => {
                                             <SwiperSlide className="card-siper-container">
                                                 <div>
                                                     <div className="card">
-                                                        <img src={data.image} className="card__image" alt="" />
+                                                        <img src={require(`../assets/subject-images/${data?.image}`)} className="card__image" alt="" />
                                                         <div className="card__overlay">
 
                                                             <div className="card__header">
@@ -469,31 +477,62 @@ const Books = () => {
                                                                 </div>
                                                                 <div className="book-info-with-user">
                                                                     <svg className="card__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>
-                                                                    <img className="card__thumb" src="https://i.imgur.com/7D7I6dI.png" alt="" />
+                                                                    <Link to={`/${data.userName}`} className="lineArrowRight">
+                                                                        <img className="card__thumb" src="https://i.imgur.com/7D7I6dI.png" alt="" />
+                                                                    </Link>
                                                                     <div className="card__header-text">
                                                                         <h3 className="card__title">{data.subject}</h3>
-                                                                        <span className="user-name-par">{data.userName} </span>
+                                                                        <Link to={`/${data.userName}`} className="lineArrowRight">
+                                                                            <span className="user-name-par">{data.userName} </span>
+                                                                        </Link>
                                                                     </div>
 
                                                                 </div>
                                                                 <div className="book__status">
-                                                                    <p className={data.slide == 1 ? 'true-status' : 'false-status'} > {data.donation == 1 ? 'slide' : 'slide'}</p>
+                                                                    <p className={data.slide == 1 ? 'true-status' : 'false-status'} style={{ backgroundColor: '#d0a773' }}> {data.donation == 1 ? 'slide' : 'slide'}</p>
                                                                     <p className="card__status">10:00AM</p>
                                                                 </div>
                                                             </div>
                                                             <div className="book-info">
                                                                 <div className="more-details-button">
-                                                                    <Link to={`${location.pathname}/exchange/${data.book_ID}`} replace className="lineArrowRight">
-                                                                        <button variant="outline-secondary" className="details-book-button"> more details <MdReadMore className="more-details-icon" /></button>
-                                                                    </Link>
+                                                                    <button variant="outline-secondary" className="details-book-button" onClick={
+                                                                        async () => {
+
+
+                                                                            await axios.get(`http://localhost:4000/files/${data.file}`,
+                                                                                {
+                                                                                    responseType: 'arraybuffer',
+                                                                                    headers: {
+                                                                                        'Content-Type': 'application/json',
+                                                                                        'Accept': 'application/pdf'
+                                                                                    }
+                                                                                })
+                                                                                .then((response) => {
+                                                                                    const url = window.URL.createObjectURL(new Blob([response.data]));
+                                                                                    const link = document.createElement('a');
+                                                                                    link.href = url;
+                                                                                    link.setAttribute('download', data.file.split('_')[1]); //or any other extension
+                                                                                    document.body.appendChild(link);
+                                                                                    link.click();
+                                                                                })
+                                                                                .catch((error) => console.log(error));
+
+                                                                        }
+                                                                    } >
+                                                                        Download PDF
+                                                                        {/* <a type="button"
+                                                                className="btn btn-secondary btn-lg"
+                                                                href={`http://localhost:4000/files/${data.file}`}
+
+                                                                download>
+                                                                Download PDF
+                                                            </a> */}
+                                                                    </button>
+
 
                                                                 </div>
-                                                                <div className="text-auther-button">
-                                                                    <div className="text-auther-icon">
-                                                                        <span className="text-auther">message</span>
-                                                                        <span><RiMessengerLine className="text-icon" /></span>
-                                                                    </div>
-                                                                </div>
+
+
                                                             </div>
                                                         </div>
                                                     </div>

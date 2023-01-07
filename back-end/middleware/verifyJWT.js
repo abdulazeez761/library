@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const verifyJWT = (req, res, next) => {
     const authHeader = Object.assign({}, req.rawHeaders);
+    console.log(authHeader)
     let tokenAuthHeader = '';
     req.rawHeaders.map((data) => {
         if (data.startsWith('jwt=')) {

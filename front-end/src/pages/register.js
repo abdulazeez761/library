@@ -23,6 +23,7 @@ function Register() {
     const [validPwd, setValidPwd] = useState(false);
     const [pwdFocus, setPwdFocus] = useState(false);
 
+
     const [matchPwd, setMatchPwd] = useState('');
     const [validMatch, setValidMatch] = useState(false);
     const [matchFocus, setMatchFocus] = useState(false);
@@ -30,7 +31,7 @@ function Register() {
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
 
-
+    const [image, setImage] = useState();
     const [instaLink, setInstaLink] = useState('');
     const [validInstaLink, setValidInstaLink] = useState(false);
     const [instaLinkFoucus, setInstaLinkFoucus] = useState(false);
@@ -96,11 +97,37 @@ function Register() {
         const v3 = instagramUrlRegex.test(instaLink)
         const v4 = facebookRegex.test(facebookLink)
         const v5 = twitterRegex.test(twitterLink)
+        // const v6 = test the file is image
         if (!v1 || !v2 || !v3 || !v4 || !v5) {
             setErrMsg("Invalid Entry");
             return;
         }
         try {
+            if (image) {
+                let reader = new FileReader();
+
+                reader.readAsText(image);
+                reader.onload = async function () {
+
+                    await axios.post('http://localhost:4000/register',
+                        { user, pwd, instaLink, facebookLink, twitterLink, profile_image: reader.result },
+                        {
+                            headers: { 'Content-Type': 'application/json' },
+                            withCredentials: true
+                        }
+                    ).then((res) => {
+                        // console.log(res.config.data);
+                        // console.log(res)
+                        setSuccess(true);
+                        //clear state and controlled inputs
+                        //need value attrib on inputs for this
+                        setUser('');
+                        setPwd('');
+                        setMatchPwd('');
+                        setInstaLink('')
+                    })
+                };
+            }
             await axios.post('http://localhost:4000/register',
                 JSON.stringify({ user, pwd, instaLink, facebookLink, twitterLink }),
                 {
@@ -131,6 +158,10 @@ function Register() {
         }
     }
 
+
+    // reader.onerror = function () {
+    //     console.log(reader.error);
+    // };
 
     return (
         <>
@@ -222,6 +253,20 @@ function Register() {
                                     <FontAwesomeIcon icon={faInfoCircle} />
                                     Must match the first password input field.
                                 </p>
+                            </div>
+                            <div className='optional-field-contaoner' >
+                                <input
+                                    type="file"
+                                    id="slide file"
+                                    // name="file"
+                                    autoComplete="off"
+                                    // value={slideField}
+                                    accept="image/*"
+                                    onChange={(e) => setImage(e.target.files[0])}
+
+
+                                />
+                                <label htmlFor="book's name"></label>
                             </div>
                             <p className='instructions' style={{ backgroundColor: 'white', color: 'black', fontSize: "1em", marginBottom: '2rem' }}>social media links:</p>
                             <div>

@@ -3,9 +3,6 @@
     --curve: 40;
 }
 
-
-
-
 .cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -15,20 +12,32 @@
     list-style-type: none;
     position: relative;
     transition: .2s ease-in-out;
+
+
+}
+
+.card-siper-container div {
+    border: none;
 }
 
 .card {
     position: relative;
     display: block;
     height: 100%;
-    border-radius: calc(var(--curve) * 1px);
+    box-shadow: rgba(99, 99, 99, 0.2) 1px 2px 8px 0px;
+    /* box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 10px, rgba(0, 0, 0, 0.23) 1px 6px 6px; */
     overflow: hidden;
     text-decoration: none;
     transition: .2s ease-in-out;
+
 }
 
 .card__image {
+    position: relative;
+    bottom: 85px;
     width: 100%;
+    aspect-ratio: 3/2;
+    object-fit: contain;
     height: 45vh;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
     transition: .2s ease-in-out;
@@ -75,8 +84,6 @@
 
 }
 
-
-
 .card:hover .card__header {
     transform: translateY(0);
 }
@@ -86,7 +93,7 @@
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -3px 3px, rgba(0, 0, 0, 0.12) 0px 2px 2px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -1px 3px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 .card__title {
@@ -111,17 +118,6 @@
     white-space: nowrap;
 
 }
-
-/* .card__description {
-    padding: 0 2em 2em;
-    margin: 0;
-    color: #D7BDCA;
-    font-family: "MockFlowFont";
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    overflow: hidden;
-} */
 
 .book-info {
     display: flex;
@@ -244,7 +240,6 @@
 }
 
 .book-type .college-par p {
-    border: 1px solid rgb(141, 141, 141);
     width: max-content;
     padding-right: 1em;
     padding-left: 1em;
@@ -265,35 +260,41 @@
     font-size: 0.8em;
     display: flex;
     justify-content: space-between;
-    color: #2b2b2b;
     margin-bottom: -10px;
+    margin-left: 6px;
 }
 
 .book__status .true-status {
-    border: 1px solid rgb(141, 141, 141);
-    /* color: rgb(207, 183, 116); */
-    padding-right: 0.4em;
-    padding-left: 0.4em;
-    border-radius: 8px;
-    color: #534a3e;
+    /* border: 1px solid rgb(141, 141, 141); */
+    /* color: #6259e0; */
+    color: white;
+    font-weight: 500;
+    padding-right: 0.6em;
+    padding-left: 0.6em;
+    border-radius: 10px;
+
+    /* background-color: #F2C665; */
 }
 
 
 
 .book__status .false-status {
-    border: 1px solid rgb(141, 141, 141);
-    /* color: rgb(207, 183, 116); */
+    display: none;
+    /* color: rgb(0, 0, 0); */
+
+
+    /* border: 1px solid rgb(141, 141, 141);
+    color: rgb(207, 183, 116);
     padding-right: 0.4em;
     padding-left: 0.4em;
     border-radius: 8px;
     background-color: #c5c5c5;
-    color: #9e9e9e;
+    color: #9e9e9e; */
 }
 
 .mySwiper {
     width: 100%;
     height: 100%;
-
 }
 
 .mySwiper .card-siper-container .card {
@@ -303,8 +304,6 @@
 
 .swiper-slide {
     padding-bottom: 3em;
-
-
 }
 
 

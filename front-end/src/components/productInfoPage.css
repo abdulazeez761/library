@@ -1,44 +1,73 @@
+.card-page-container {
+    padding: 2em;
+}
+
 .product-card-container,
-.product-image-container,
-.status-container {
+.product-image-container {
     display: flex;
     justify-content: space-around;
+    text-align: left;
+}
+
+.card-page-container {
+    position: relative;
+    right: 8%;
+}
+
+.close-prduct-page-icon p {
+    margin-top: 0.7em;
+    color: black;
+}
+
+.close-prduct-page-icon p:hover {
+    color: #686868;
+    transition: all .2s ease-in-out;
 }
 
 .product-image-container img {
     height: 50vh;
     margin-right: 3em;
     border-radius: 20px;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    aspect-ratio: 3/4;
+    object-fit: contain;
+}
+
+.product-subject-info {
+    display: flex;
+    justify-content: start;
 
 }
 
-
-
-.subject-and-user-info {
-    position: relative;
-}
-
-.subject-and-user-info>* {
-    margin-top: 0.7em;
-    text-align: left;
-}
-
-.userName-product-page {
-    position: absolute;
-    left: 20%;
-    bottom: 60%;
-    width: max-content;
-}
-
-.product-image-container .card__thumb {
+.product-subject-user-info .card__thumb {
     display: flex;
     flex-shrink: 0;
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    align-items: flex-start;
+    padding: 0%;
+    margin: 0%;
 
+    object-fit: contain;
+}
+
+.product-subject-user-info {
+    display: flex;
+    justify-content: start;
+}
+
+.userName-product-page {
+    padding: 0%;
+    position: relative;
+    top: 10px;
+    left: 20px;
+}
+
+.status-container {
+    display: flex;
+    position: relative;
+    right: 20px;
+    margin-top: 1.3em;
 }
 
 .status-container p {
@@ -46,18 +75,32 @@
     width: max-content;
     padding-right: 1em;
     padding-left: 1em;
-    margin-right: 4px;
-    margin-left: 4px;
-    margin-top: 5px;
     border-radius: 25px;
+    margin-left: 1em;
+    text-align: left;
 }
 
-.products-page-buttons {
-    position: relative;
-    top: 60%;
+.product-subject-info p {
+    padding-right: 1em;
+    /* padding-left: 1em; */
 }
 
+.subject-and-user-info {
+    margin-top: 2em;
+}
+
+.product-connection-info {
+    margin-top: 1em;
+}
+
+.post-time {
+    color: gray;
+    font-size: 13px;
+}
+
+/* 
 .contact-button {
+    color: rgb(255, 255, 255);
     border: none;
     border-radius: 25px;
     background: #d0a773;
@@ -67,4 +110,4 @@
 .contact-button:hover {
     background-color: rgb(0, 0, 0);
     color: white;
-}
+} */

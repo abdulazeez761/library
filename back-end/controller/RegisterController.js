@@ -1,8 +1,8 @@
 const bcrypt = require('bcrypt')
 const userData = require('../model/userInfro')
 exports.signUpFunction = async (req, res, next) => {
-    let { user, pwd, instaLink, facebookLink, twitterLink } = req.fields
-
+    let { user, pwd, instaLink, facebookLink, twitterLink, profile_image } = req.fields
+    if (!profile_image) profile_image = 'image'
     if (!user || !pwd) return res.status(400).json({
         'message': 'user and passowrd are required'
     })
@@ -12,10 +12,12 @@ exports.signUpFunction = async (req, res, next) => {
         return res.sendStatus(409);
     }
     //adding a user
+
     try {
         //encrypt the passowrd
+        console.log(profile_image)
         const hashedPassowrd = await bcrypt.hash(pwd, 10);
-        userData.addNewUser(user, hashedPassowrd, instaLink, facebookLink, twitterLink).then(() => {
+        userData.addNewUser(user, hashedPassowrd, instaLink, facebookLink, twitterLink, profile_image).then(() => {
             res.status(201).json({
                 'success': `new user ${user} created`
             })

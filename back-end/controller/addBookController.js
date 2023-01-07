@@ -79,9 +79,26 @@ exports.specificData = async (req, res) => {
 
 
     const token = req.cookies.jwt
-
     let payload = JSON.parse(Buffer.from(token.split(".")[1], "base64url"));
     const userName = payload.username
+    productsModle.getAspecificUsersProducts(userName).then(([rows, meta]) => {
+        res.status(200).json({
+            data: rows
+        })
+    }).catch(err => {
+        res.status(400).json({
+            data: err
+        })
+    });
+
+}
+
+//specific user books API with an query params
+exports.queryUserNameData = async (req, res) => {
+
+    const userName = req.params.userName
+    let [rows, meta] = await userData.isUserExist(userName)
+    if (rows.length <= 0) return res.sendStatus(401);
     productsModle.getAspecificUsersProducts(userName).then(([rows, meta]) => {
         res.status(200).json({
             data: rows

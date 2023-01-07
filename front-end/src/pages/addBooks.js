@@ -277,7 +277,6 @@ const AddBooks = React.memo(props => {
                         if (res.status == 204) {
                             return setErrMessage('pleas select the missing option')
                         }
-
                         setUniversityOption('');
                         setCollegeOption('');
                         setEmailOption('');
@@ -295,9 +294,6 @@ const AddBooks = React.memo(props => {
                         setFile();
                         setFileName("");
                         setSlide(false)
-
-
-
                     })
             }
 

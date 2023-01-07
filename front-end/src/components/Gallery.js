@@ -31,7 +31,7 @@ function Gallery() {
 
     <div className="gallery-section">
 
-      <h1>sellect a collage</h1>
+      <h1 className="gallery-header">sellect a collage</h1>
       <div className="gallery-container">
 
         {
@@ -40,7 +40,7 @@ function Gallery() {
             return (
               <Link key={idx} className="collage-link" to={`/college/${item.college.replaceAll(' ', '-')}/${item.id}`}>
                 <div className="gallery-item" >
-                  <img src={item.image} alt={item.college + ' ' + 'collage'} />
+                  <img src={require(`../assets/imgs/${item.image}`)} alt={item.college + ' ' + 'collage'} />
                   <p>
                     {item.college}
                   </p>
